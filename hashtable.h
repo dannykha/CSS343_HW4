@@ -1,9 +1,10 @@
 #ifndef HASTABLE_H
 #define HASTABLE_H
+#pragma once;
 
 using namespace std;
 
-class Hashtable
+class HashTable
 {
     public:
 
