@@ -1,5 +1,6 @@
 #ifndef MOVIE_H
 #define MOVIE_H
+#pragma once;
 #include <iostream>
 #include <fstream>
 
@@ -17,6 +18,10 @@ class Movie
 
     private:
         string filmCategory;
+        int stock;
+        string director;
+        string title;
+        int year;
 };
 
 

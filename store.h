@@ -1,5 +1,5 @@
 #ifndef STORE_H
-#define STORE_H
+#pragma once;
 #include <iostream>
 #include <fstream>
 

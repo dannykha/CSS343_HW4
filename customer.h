@@ -1,5 +1,6 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
+#pragma once;
 #include <iostream>
 
 using namespace std;
