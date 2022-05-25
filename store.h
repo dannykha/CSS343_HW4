@@ -8,9 +8,9 @@ using namespace std;
 class Store
 {
     public:
-    void readInventory(ifstream &);
-    void readCommands(ifstream &);
-    void readCustomers(ifstream &);
+        void readMovies(ifstream &);
+        void readCommands(ifstream &);
+        void readCustomers(ifstream &);
 
     private:
 
