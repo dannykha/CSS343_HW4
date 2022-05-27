@@ -18,3 +18,38 @@ bool Movie::operator!=(Movie &movie)
 {
     return !(*this == movie);
 };
+
+bool Movie::borrowMovie()
+{
+    
+};
+
+bool Movie::returnMovie()
+{
+
+};
+
+int Movie::getStock()
+{
+    return stock;
+};
+
+string Movie::getTitle()
+{
+    return title;
+};
+
+string Movie::getDirector()
+{
+    return director;
+};
+
+int Movie::getReleaseYear()
+{
+    return year;
+};
+
+string Movie::getGenre()
+{
+    return filmCategory;
+};
