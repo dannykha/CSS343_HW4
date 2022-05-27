@@ -7,10 +7,13 @@
 class Borrow
 {
     public:
-        bool executeBorrow(Movie &);
+        Borrow(Customer *custPtr, Movie *moviePtr);
+        ~Borrow() {};
+        virtual void printBorrow();
+        virtual void executeBorrow();
     private:
-        Movie *movie;
-        Customer *cust;
+        Movie *moviePtr;
+        Customer *custPtr;
         int tempStock;
 };
 #endif // BORROW_H
