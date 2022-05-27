@@ -10,16 +10,32 @@ using namespace std;
 class Movie
 {
     public:
-    
-    bool operator == (Movie &);
-    bool operator != (Movie &);
-    virtual bool borrowMovie();
-    virtual bool returnMovie();
-    virtual int getStock();
-    virtual string getTitle();
-    virtual string getDirector();
-    virtual int getReleaseYear();
-    virtual string getGenre();
+        //default constructor to be overloaded by each genre class
+        Movie();
+        //destructor
+        virtual ~Movie();
+
+        //overloaded comparison operators
+        bool operator==(Movie &);
+        bool operator!=(Movie &);
+
+        //overloaded borrow and return functions
+        virtual int borrowMovie();
+        virtual int returnMovie();
+
+        //getter functions
+        virtual int getStock(); //return movie stock
+        virtual string getTitle(); //return movie title
+        virtual string getDirector(); //return movie director
+        virtual int getReleaseYear(); //return movie release year
+        virtual string getGenre(); //return movie genre
+
+        //setter functions
+        virtual void setStock(const int stock); //set movie stock
+        virtual void setTitle(const string title); //set movie title
+        virtual void setDirector(const string director); //set movie director
+        virtual void setReleaseYear(const int year); //set movie release year
+        virtual void setGenre(const string genre); //set movie genre
     
 
     private:
