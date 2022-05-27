@@ -6,8 +6,11 @@
 class History
 {
     public:
-        void executeHistory();
+        History(Customer *cust);
+        ~History() {};
+        virtual void printHistory();
+        virtual void executeHistory();
     private:
-        Customer *cust;
+        Customer *custPtr;
 };
 #endif // HISTORY_H
