@@ -2,17 +2,29 @@
 #define CLASSIC_H
 #pragma once;
 #include <iostream>
+#include "movie.h"
 
 using namespace std;
 
-class Classic
+class Classic : public Movie
 {
     public:
-        string getActor();
-        string getReleaseDate();
+        //constructor
+        Classic(const int tStock, const string director,
+        const string title, const string actorFirst, const string actorLast,
+        const int month, const int year);
+        
+        //destructor
+        virtual ~Classic();
 
+        //getter functions
+        string getActor(); //return actor name
+        string getReleaseDate(); //return release date
+
+        //overloaded borrow and return functions
         int borrowMovie();
         int returnMovie();
+
     private:
         string actorFirst;
         string actorLast;
