@@ -8,6 +8,7 @@ using namespace std;
 class Customer
 {
     public:
+        Customer(int, string, string); // id, firstname, lastname
         bool setName(string, string);
         bool setName(string);
         bool setID(int);
