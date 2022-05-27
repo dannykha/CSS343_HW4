@@ -7,9 +7,11 @@
 class Inventory
 {
     public:
-        bool executeInventory(Movie &);
-        bool addMovie(Movie *);
-        void printInventory();
+        Inventory();
+        virtual ~Inventory() {};
+        virtual void executeInventory();
+        virtual void addMovie();
+        virtual void printInventory();
     private:
         HashTable inventory;
 };
