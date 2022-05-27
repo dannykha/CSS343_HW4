@@ -9,7 +9,7 @@ class Inventory
     public:
         Inventory();
         virtual ~Inventory() {};
-        bool executeInventory();
+        virtual void executeInventory();
         virtual void addMovie();
         virtual void printInventory();
     private:
