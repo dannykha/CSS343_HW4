@@ -12,6 +12,7 @@ class Customer
         bool setName(string);
         bool setID(int);
         bool processCommands(string);
+        string getName();
 
         bool borrowFilm(string);
         bool returnFilm(string);

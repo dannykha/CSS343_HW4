@@ -7,10 +7,13 @@
 class Return
 {
     public:
-        bool executeReturn(Movie &);
+        Return(Customer *custPtr, Movie *moviePtr);
+        virtual ~Return() {};
+        virtual void printReturn();
+        virtual void executeReturn();
     private:
-        Movie *movie;
-        Customer *cust;
+        Movie *moviePtr;
+        Customer *custPtr;
         int tempStock;
 };
 #endif // RETURN_H
