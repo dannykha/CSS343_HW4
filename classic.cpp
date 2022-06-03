@@ -33,17 +33,3 @@ string Classic::getReleaseDate()
 {
     return (month + " " + getReleaseYear());
 };
-
-//-----------------------------------------------------------------
-//borrow function; stock - 1
-int Classic::borrowMovie()
-{
-
-};
-
-//-----------------------------------------------------------------
-//return function; stock + 1
-int Classic::returnMovie()
-{
-
-};

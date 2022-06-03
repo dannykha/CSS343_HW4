@@ -13,10 +13,6 @@ class Comedy : public Movie
         
         //destructor
         virtual ~Comedy();
-
-        //overloaded borrow and return functions
-        int borrowMovie();
-        int returnMovie();
 };
 
 #endif // COMEDY_H
