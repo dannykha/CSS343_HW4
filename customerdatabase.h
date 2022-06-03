@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class CustomerDatabase
+class CustomerDatabase : public HashTable
 {
     public:
         CustomerDatabase();
