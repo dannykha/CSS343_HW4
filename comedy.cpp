@@ -17,17 +17,3 @@ const string title, const int year)
 //-----------------------------------------------------------------
 //destructor
 Comedy::~Comedy() {};
-
-//-----------------------------------------------------------------
-//borrow function; stock - 1
-int Comedy::borrowMovie()
-{
-    
-};
-
-//-----------------------------------------------------------------
-//return function; stock + 1
-int Comedy::returnMovie()
-{
-
-};

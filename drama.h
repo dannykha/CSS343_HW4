@@ -13,9 +13,5 @@ class Drama : public Movie
         
         //destructor
         virtual ~Drama();
-
-        //overloaded borrow and return functions
-        int borrowMovie();
-        int returnMovie();
 };
 #endif // DRAMA_H

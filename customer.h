@@ -8,18 +8,14 @@ using namespace std;
 class Customer
 {
     public:
+        //setter functions
         bool setName(string, string);
         bool setName(string);
         bool setID(int);
         bool processCommands(string);
         string getName();
 
-        bool borrowFilm(string);
-        bool returnFilm(string);
-
-        int inventory(string);
-
-        void history(int);
+        int inventory(string); //return current inventory
 
         void addAction(); // adds actions to customer’s transaction queue
         void addMovie(); // adds movie 
