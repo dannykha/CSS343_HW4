@@ -8,7 +8,8 @@ using namespace std;
 class Customer
 {
     public:
-        //setter functions
+
+        Customer(int, string, string); // id, firstname, lastname
         bool setName(string, string);
         bool setName(string);
         bool setID(int);

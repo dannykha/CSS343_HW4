@@ -1,16 +1,20 @@
 #ifndef STORE_H
+#define STORE_H
 #pragma once;
 #include <iostream>
 #include <fstream>
+#include "inventory.h"
 
 using namespace std;
 
 class Store
 {
     public:
-        void readMovies(ifstream &);
-        void readCommands(ifstream &);
-        void readCustomers(ifstream &);
+        Store();
+        ~Store();
+        void readMovies(string &);
+        void readCommands(string &);
+        void readCustomers(string &);
 
     private:
 
