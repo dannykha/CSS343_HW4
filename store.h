@@ -19,7 +19,8 @@ class Store
         void setStoreName(string &);
 
     private:
-
+        Inventory StoreInventory;
+        CustomerDatabase StoreCustomerDatabase;
         string storeName;
 
 };
