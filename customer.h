@@ -23,19 +23,15 @@ class Customer
 
         void addMovie(Movie &); // adds movie 
         void borrowMovie(Movie &); // performs borrow for customer, records transaction in history
-        void returnMovie(); // performs return for customer, records transaction in history
+        void returnMovie(Movie &); // performs return for customer, records transaction in history
         void printInventoryHistory(); // prints customer’s history of movie inventory to console
-        void printActionHistory(); // prints customer’s history of transactions to console
-        void clearInventoryHistory(); // clears the customer’s history of movie inventory 
-        void clearActionHistory(); // clears the customer’s history of transactions
-
-
 
     private:
         int id;
         string custFirst;
         string custLast;
         vector<Movie> currentMovies;
+        vector<string> transactionHistory;
     
 };
 
