@@ -3,6 +3,8 @@
 #pragma once
 #define TABLE_SIZE 250
 #include "movie.h"
+#include "classic.h"
+#include <vector>
 
 using namespace std;
 
@@ -27,8 +29,18 @@ class MovieInventory
         void insert(Movie *moviPtr);
         Movie *search(int key);
         void remove(int key);
+        void printInventory();
+        void sortMovies();
+        bool compareGenre(Movie, Movie);
+        bool compareTitle(Movie, Movie);
+        bool compareComedyYear(Movie, Movie);
+        bool compareDramaDirector(Movie, Movie);
+        bool compareClassicRelease(Classic, Classic);
+        bool compareClassicActor(Classic, Classic);
     private:
         HashElement **table;
+        vector<Movie> vecMovie;
+        int numComedy, numDrama, numClassic;
 };
 
 

@@ -94,3 +94,66 @@ void MovieInventory::remove(int key)
     }
 	cout << "Element Deleted" << endl; 
 }
+
+void printInventory()
+{
+
+}
+
+void sortMovies()
+{
+	numComedy = 0;
+	numDrama = 0;
+	numClassic = 0;
+	for (auto i = 0; i < TABLE_SIZE; i++) 
+	{
+		if (table[i].getGenre() == "C")
+		{
+			numClassic += 1;
+		}
+		else if (table[i].getGenre() == "F")
+		{
+			numComedy += 1;
+		}
+		else if (table[i].getGenre() == "D")
+		{
+			numDrama += 1;
+		}
+		vecMovie.push_back(table[i]);
+	}
+	vecMovie.sort(vecMovie.begin(), vecMovie.end(), compareGenre);
+	vecMovie.sort(vecMovie.begin(), numComedy, compareTitle);
+	// iterator through the comdey, use two pointers, 
+	// if the first pointer and the second pointer equal the same title, 
+	// then swap those based on year released
+}
+
+bool MovieInventory::compareGenre(Movie m1, Movie m2)
+{
+	return (m1.getGenre() < m2.getGenre());
+}
+
+bool MovieInventory::compareTitle(Movie m1, Movie m2)
+{
+	return (m1.getTitle() < m2.getTitle());
+}
+
+bool MovieInventory::compareComedyYear(Movie m1, Movie m2)
+{
+	return (m1.getReleaseYear() < m2.getReleaseYear());
+}
+
+bool MovieInventory::compareDramaDirector(Movie m1, Movie m2)
+{
+	return (m1.getDirector() < m2.getDirector());
+}
+
+bool MovieInventory::compareClassicRelease(Classic m1, Classic m2)
+{
+	return (m1.getReleaseDate() < m2.getReleaseDate());
+}
+
+bool MovieInventory::compareClassicActor(Classic m1, Classic m2)
+{
+	return (m1.getActor() < m2.getActor());
+}
