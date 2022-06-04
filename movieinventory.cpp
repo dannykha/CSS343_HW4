@@ -126,6 +126,49 @@ void sortMovies()
 	// iterator through the comdey, use two pointers, 
 	// if the first pointer and the second pointer equal the same title, 
 	// then swap those based on year released
+	int itr1 = 0;
+	int itr2 = 0;
+	// For comedy
+	for (int j = 0; j < numComedy; j++)
+	{
+		itr2++;
+		j = itr2;
+		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
+		{
+			vecMovie.sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareComedyYear);
+		}
+		itr1++;
+	}
+
+	// For drama
+	vecMovie.sort(vecMovie.begin() + numComedy, vecMovie.begin() + numDrama, compareDramaDirector);
+	itr1 = numComedy;
+	itr2 = numComedy;
+	for (int k = numComedy; k <= numComedy + numDrama; k++)
+	{
+		itr2++;
+		k = itr2;
+		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
+		{
+			vecMovie.sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareTitle);
+		}
+		itr1++;
+	}
+
+	// For classic
+	vecMovie.sort(vecMovie.begin() + numComedy + numDrama, vecMovie.end(), compareClassicRelease);
+	itr1 = numComedy + numDrama;
+	itr2 = numComedy + numDrama;
+	for (int l = numComedy; l <= numComedy + numDrama; l++)
+	{
+		itr2++;
+		l = itr2;
+		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
+		{
+			vecMovie.sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareClassicActor);
+		}
+		itr1++;
+	}
 }
 
 bool MovieInventory::compareGenre(Movie m1, Movie m2)
