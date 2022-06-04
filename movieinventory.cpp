@@ -33,19 +33,17 @@ void MovieInventory::destroy()
 	delete[] table;
 }
 
-int MovieInventory::hashFunction(string key)
+int MovieInventory::hashFunction(int key)
 {
 	int modVal = TABLE_SIZE - 1;
-	for (int i = 0; i < key.length(); i++) {
-        modVal += key[i] * pow(PRIME_CONST, i);
-    }
-    return modVal;
+    return key % modVal;
 }
 
 void MovieInventory::insert(Movie * moviPtr)
 {
-    string key = moviPtr->getGenre + moviPtr->getDirector + to_string(moviPtr->getReleaseYear) + moviPtr->getTitle;
-	int hash = hashFunction(key);
+    string temp = moviPtr->getGenre + moviPtr->getDirector + to_string(moviPtr->getReleaseYear) + moviPtr->getTitle;
+	int key = stoi(temp);
+    int hash = hashFunction(key);
 	while (table[hash] != nullptr && table[hash]->key != key)
     {
         hash = hashFunction(hash + 1);
