@@ -21,7 +21,7 @@ class MovieInventory
 {
     public:
         MovieInventory();
-        ~MovieInvetory();
+        ~MovieInventory();
         void destroy();
         int hashFunction(int key);
         void insert(Movie *moviPtr);

@@ -62,7 +62,7 @@ void Customer::borrowMovie(Movie &movie)
     addMovie(movie);
     string temp = movie.getGenre() + movie.getDirector() + to_string(movie.getReleaseYear()) + movie.getTitle();
 	int key = stoi(temp);
-    StoreInventory.search(key).setStock(StoreInventory.search(key).getStock() - 1);
+    Store::StoreInventory.search(key)->setStock(Store::StoreInventory.search(key)->getStock() - 1);
     string message = "User borrowed: " + movie.getReleaseYear() + movie.getTitle(); 
     transactionHistory.push_back(message);
 };
@@ -82,7 +82,7 @@ void Customer::returnMovie(Movie &movie)
     }
     string temp = movie.getGenre() + movie.getDirector() + to_string(movie.getReleaseYear()) + movie.getTitle();
 	int key = stoi(temp);
-    StoreInventory.search(key).setStock(StoreInventory.search(key).getStock() + 1);
+    Store::StoreInventory.search(key)->setStock(Store::StoreInventory.search(key)->getStock() + 1);
 
     string message = "User returned: " + movie.getReleaseYear() + movie.getTitle(); 
     transactionHistory.push_back(message);    
