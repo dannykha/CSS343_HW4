@@ -23,7 +23,7 @@ class MovieInventory
         MovieInventory();
         ~MovieInvetory();
         void destroy();
-        int hashFunction(string key);
+        int hashFunction(int key);
         void insert(Movie *moviPtr);
         Movie *search(int key);
         void remove(int key);
