@@ -8,7 +8,6 @@ int main()
     StoreBuilder Stor;
     string storeName = "store0";
     Stor.addStore(storeName);
-    string storeName = "store1";
     
     string commandsFile = "data4commands.txt";
     Stor.getStore(0).readCommands(commandsFile);

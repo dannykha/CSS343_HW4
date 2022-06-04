@@ -1,6 +1,6 @@
 #ifndef MOVIE_H
 #define MOVIE_H
-#pragma once;
+#pragma once
 #include <iostream>
 #include <fstream>
 
