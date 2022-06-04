@@ -97,7 +97,20 @@ void MovieInventory::remove(int key)
 
 void printInventory()
 {
-
+	sortMovies();
+	for (auto i = vecMovie.begin(); i != vecMovie.end(); i++)
+	{
+		vector<Movie>::iterator it;
+		it = i;
+		cout << "Printing the inventory...";
+		cout << "Title	Genre	Stock	Year	Director";
+		cout << vecMovie.at(it).getTitle() << " ";
+		cout << vecMovie.at(it).getGenre() << " ";
+		cout << vecMovie.at(it).getStock() << " ";
+		cout << vecMovie.at(it).getReleaseYear() << " ";
+		cout << vecMovie.at(it).getDirector() << " ";
+		cout << endl;
+	}
 }
 
 void sortMovies()
