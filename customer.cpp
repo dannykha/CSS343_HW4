@@ -1,23 +1,27 @@
 #include "customer.h"
+#include <iostream>
+#include <vector>
 
+//FOR ANDREW
 //name setter function
-bool Customer::setName(string, string)
+bool Customer::setName(string first, string last)
 {
-
+    this->custFirst = first;
+    this->custLast = last;
 };
 
 //-----------------------------------------------------------------
-//
+//name setter function
 bool Customer::setName(string)
 {
 
 };
 
 //-----------------------------------------------------------------
-//
-bool Customer::setID(int)
+//ID number setter function
+bool Customer::setID(int number)
 {
-
+    this->id = number;
 };
 
 //-----------------------------------------------------------------
@@ -31,14 +35,15 @@ bool Customer::processCommands(string)
 //
 string Customer::getName()
 {
-
+    return custFirst + " " + custLast;
 };
 
 //-----------------------------------------------------------------
 //return current inventory
 int Customer::inventory(string)
 {
-
+    vector<Movie> currentMovies;
+    currentMovies.push_back()
 };
 
 //-----------------------------------------------------------------
