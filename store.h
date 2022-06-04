@@ -10,6 +10,7 @@
 #include "classic.h"
 #include "comedy.h"
 #include "drama.h"
+#include "customerdatabase.h"
 
 using namespace std;
 
@@ -23,9 +24,9 @@ class Store
         void readCustomers(string &);
 
         void setStoreName(string &);
-
-    private:
         MovieInventory StoreInventory;
+    private:
+        
         CustomerDatabase StoreCustomerDatabase;
         string storeName;
 
