@@ -1,6 +1,6 @@
 #ifndef STOREBUILDER_H
 #define STOREBUILDER_H
-#pragma once;
+#pragma once
 #include <vector>
 #include "store.h"
 

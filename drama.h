@@ -1,6 +1,6 @@
 #ifndef DRAMA_H
 #define DRAMA_H
-#pragma once;
+#pragma once
 #include <iostream>
 #include "movie.h"
 

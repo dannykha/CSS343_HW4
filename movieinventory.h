@@ -1,6 +1,6 @@
 #ifndef MOVIEINVENTORY_H
 #define MOVIEINVENTORY_H
-#pragma once;
+#pragma once
 #define TABLE_SIZE 250
 #include "movie.h"
 
@@ -17,7 +17,7 @@ class HashElement
         }
 };
 
-class MovieInvetory
+class MovieInventory
 {
     public:
         MovieInventory();

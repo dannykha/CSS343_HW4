@@ -1,6 +1,6 @@
 #ifndef RETURN_H
 #define RETURN_H
-#pragma once;
+#pragma once
 #include "movie.h"
 #include "customer.h"
 

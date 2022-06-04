@@ -1,6 +1,6 @@
 #ifndef STORE_H
 #define STORE_H
-#pragma once;
+#pragma once
 #include <iostream>
 #include <fstream>
 #include "inventory.h"
