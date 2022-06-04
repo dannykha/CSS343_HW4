@@ -1,6 +1,6 @@
 #ifndef HASTABLE_H
 #define HASTABLE_H
-#pragma once;
+#pragma once
 #define TABLE_SIZE 250
 #include "customer.h"
 

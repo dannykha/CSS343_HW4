@@ -1,7 +1,10 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
-#pragma once;
+#pragma once
 #include <iostream>
+#include "movie.h"
+#include "movieinventory.h"
+#include "store.h"
 
 using namespace std;
 
@@ -13,14 +16,13 @@ class Customer
         bool setName(string, string);
         bool setName(string);
         bool setID(int);
-        bool processCommands(string);
+
         string getName();
 
-        int inventory(string); //return current inventory
+        void printCurrInventory(); //print current inventory
 
-        void addAction(); // adds actions to customer’s transaction queue
-        void addMovie(); // adds movie 
-        void borrowMovie(); // performs borrow for customer, records transaction in history
+        void addMovie(Movie &); // adds movie 
+        void borrowMovie(Movie &); // performs borrow for customer, records transaction in history
         void returnMovie(); // performs return for customer, records transaction in history
         void printInventoryHistory(); // prints customer’s history of movie inventory to console
         void printActionHistory(); // prints customer’s history of transactions to console
@@ -33,6 +35,7 @@ class Customer
         int id;
         string custFirst;
         string custLast;
+        vector<Movie> currentMovies;
     
 };
 

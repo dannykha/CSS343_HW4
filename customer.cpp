@@ -1,6 +1,9 @@
 #include "customer.h"
 #include <iostream>
+#include <sstream>
 #include <vector>
+
+using namespace std;
 
 //FOR ANDREW
 //name setter function
@@ -12,9 +15,10 @@ bool Customer::setName(string first, string last)
 
 //-----------------------------------------------------------------
 //name setter function
-bool Customer::setName(string)
+bool Customer::setName(string name)
 {
-
+    std::stringstream s(name);
+    s>>custFirst>>custLast;
 };
 
 //-----------------------------------------------------------------
@@ -24,12 +28,6 @@ bool Customer::setID(int number)
     this->id = number;
 };
 
-//-----------------------------------------------------------------
-//
-bool Customer::processCommands(string)
-{
-
-};
 
 //-----------------------------------------------------------------
 //
@@ -39,32 +37,30 @@ string Customer::getName()
 };
 
 //-----------------------------------------------------------------
-//return current inventory
-int Customer::inventory(string)
+//print current inventory
+void Customer::printCurrInventory()
 {
-    vector<Movie> currentMovies;
-    currentMovies.push_back()
+    for (auto i = currentMovies.begin(); i != currentMovies.end(); i++)
+    {
+        cout << *i << endl;
+    }
+    
 };
 
-//-----------------------------------------------------------------
-//adds actions to customer’s transaction queue
-void Customer::addAction()
-{
-
-};
 
 //-----------------------------------------------------------------
 //adds movie 
-void Customer::addMovie()
+void Customer::addMovie(Movie &movie)
 {
-
+    currentMovies.push_back(movie);
 };
 
 //-----------------------------------------------------------------
 //borrow function; stock - 1
-void Customer::borrowMovie()
+void Customer::borrowMovie(Movie &movie)
 {
-
+    addMovie(movie);
+    
 };
 
 //-----------------------------------------------------------------

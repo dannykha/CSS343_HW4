@@ -1,6 +1,6 @@
 #ifndef HISTORY_H
 #define HISTORY_H
-#pragma once;
+#pragma once
 #include "customer.h"
 
 class History

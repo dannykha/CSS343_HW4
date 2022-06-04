@@ -1,10 +1,9 @@
 #include "store.h"
 #include "customerdatabase.h"
 
-Store::Store()
+Store::Store(string &theName)
 {
-    Inventory StoreInventory = new Inventory;
-    CustomerDatabase StoreCustomerDatabase = new CustomerDatabase;
+    this->storeName = theName;
 
 }
 
@@ -24,7 +23,7 @@ void Store::readCommands(string &fileName)
         switch( (int)currentCommand[0] )
         {
             case 66: // B
-            
+
                 break;
             case 72: // H
 
@@ -47,7 +46,6 @@ void Store::readCustomers(string &fileName)
     string custFirst;
     string custLast;
     ifstream data;
-    string forHash;
     data.open(fileName);
     if (!data)
     {
@@ -58,15 +56,20 @@ void Store::readCustomers(string &fileName)
     while ( !data.eof() )
     {
         data >> customerID >> custFirst >> custLast;
-        forHash = (custFirst.append(custLast.append(to_string(customerID))));
-        // add a customer with hash of the string of all the above
-        // and Customer(customerID, custFirst, custLast);
+        Customer *cust = new Customer(customerID, custFirst, custLast);
+        StoreCustomerDatabase.insert(customerID, cust);
+        // DONT FORGET TO DESTRUCT
     }
 }
 
 void Store::readMovies(string &fileName)
 {
-    string currentCommand = "";
+    int stock;
+    string director;
+    string title;
+    int year;
+    string majorActor;
+    string currentMovie = "";
     ifstream data;
     data.open(fileName);
     if (!data)
@@ -74,13 +77,13 @@ void Store::readMovies(string &fileName)
         cerr << "Error: file '" << fileName << "' could not be opened" << endl;
         exit(1);
     }
-    data >> currentCommand;
+    data >> currentMovie;
     while ( !data.eof() )
     {
-        switch( (int)currentCommand[0] )
+        switch( (int)currentMovie[0] )
         {
             case 67: // C
-            
+                
                 break;
             case 68: // D
 
@@ -89,7 +92,7 @@ void Store::readMovies(string &fileName)
                 
                 break;
             default:
-                cerr << "Error: invalid movie type '" << currentCommand[0] << "'" << endl;
+                cerr << "Error: invalid movie type '" << currentMovie[0] << "'" << endl;
         }
     }
 }
