@@ -24,7 +24,7 @@ class Store
         void readCustomers(string &);
 
         void setStoreName(string &);
-        MovieInventory StoreInventory;
+        static MovieInventory StoreInventory;
     private:
         
         CustomerDatabase StoreCustomerDatabase;
