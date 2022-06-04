@@ -1,13 +1,14 @@
 #ifndef MOVIE_H
 #define MOVIE_H
 #pragma once
+#include "media.h"
 #include <iostream>
 #include <fstream>
 
 
 using namespace std;
 
-class Movie
+class Movie : public Media
 {
     public:
         //default constructor to be overloaded by each genre class
@@ -18,6 +19,7 @@ class Movie
         //overloaded comparison operators
         bool operator==(Movie &);
         bool operator!=(Movie &);
+        friend ostream& operator<<(ostream& out, const Movie&);
 
         //getter functions
         virtual int getStock(); //return movie stock
