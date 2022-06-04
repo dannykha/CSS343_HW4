@@ -23,7 +23,7 @@ void Borrow::executeBorrow()
     {
         custPtr->addCommand(this);
         custPtr->addMovie(moviePtr);
-        moviePtr->borrowMovie();
+        custPtr->borrowMovie();
         tempStock = moviePtr->getStock();
     }
     else
