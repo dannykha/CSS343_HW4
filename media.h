@@ -6,6 +6,8 @@
 class Media
 {
     public:
+        Media(); //constructor
+        virtual ~Media(); //destructor
 
     private:
 };
