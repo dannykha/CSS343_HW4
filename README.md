@@ -1,15 +1,15 @@
 # CSS343_HW4
 Assignment 4: Movie Rental Store
 
-created by Andrew Demaris, Danny Kha, and Sara Saleh
+Created by: Andrew Demaris, Danny Kha, and Sara Saleh
 
-Contribution of each group member
+Contribution of each group member:
 
-Andrew:
+Andrew - 
 
-Danny:
+Danny - 
 
-Sara:
+Sara - 
 
 Completed: June _, 2022
 
