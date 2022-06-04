@@ -2,11 +2,12 @@
 #define CUSTOMERDATABASE_H
 #pragma once;
 #include <iostream>
+#include "hashtable.h"
 #include <fstream>
 
 using namespace std;
 
-class CustomerDatabase
+class CustomerDatabase : public HashTable
 {
     public:
         CustomerDatabase();

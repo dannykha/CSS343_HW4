@@ -19,10 +19,6 @@ class Movie
         bool operator==(Movie &);
         bool operator!=(Movie &);
 
-        //overloaded borrow and return functions
-        virtual int borrowMovie();
-        virtual int returnMovie();
-
         //getter functions
         virtual int getStock(); //return movie stock
         virtual string getTitle(); //return movie title

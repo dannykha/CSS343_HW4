@@ -8,6 +8,7 @@ using namespace std;
 class Customer
 {
     public:
+
         Customer(int, string, string); // id, firstname, lastname
         bool setName(string, string);
         bool setName(string);
@@ -15,12 +16,7 @@ class Customer
         bool processCommands(string);
         string getName();
 
-        bool borrowFilm(string);
-        bool returnFilm(string);
-
-        int inventory(string);
-
-        void history(int);
+        int inventory(string); //return current inventory
 
         void addAction(); // adds actions to customer’s transaction queue
         void addMovie(); // adds movie 
