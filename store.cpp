@@ -1,10 +1,11 @@
 #include "store.h"
 #include "customerdatabase.h"
 
-Store::Store()
+Store::Store(string &theName)
 {
-    Inventory StoreInventory = new Inventory;
-    CustomerDatabase StoreCustomerDatabase = new CustomerDatabase;
+    this->storeName = theName;
+    Inventory StoreInventory;
+    CustomerDatabase StoreCustomerDatabase;
 
 }
 
