@@ -2,6 +2,7 @@
 #define CUSTOMERDATABASE_H
 #pragma once;
 #include <iostream>
+#include "hashtable.h"
 #include <fstream>
 
 using namespace std;
