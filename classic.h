@@ -1,6 +1,6 @@
 #ifndef CLASSIC_H
 #define CLASSIC_H
-#pragma once;
+#pragma once
 #include <iostream>
 #include "movie.h"
 

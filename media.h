@@ -1,6 +1,6 @@
 #ifndef MEDIA_H
 #define MEDIA_H
-#pragma once;
+#pragma once
 #include <iostream>
 
 class Media

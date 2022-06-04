@@ -1,6 +1,6 @@
 #ifndef BORROW_H
 #define BORROW_H
-#pragma once;
+#pragma once
 #include "movie.h"
 #include "customer.h"
 

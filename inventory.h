@@ -1,6 +1,6 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
-#pragma once;
+#pragma once
 #include "movie.h"
 #include "hashtable.h"
 
