@@ -5,7 +5,6 @@
 
 using namespace std;
 
-//FOR ANDREW
 //name setter function
 bool Customer::setName(string first, string last)
 {
@@ -53,6 +52,7 @@ void Customer::printCurrInventory()
 void Customer::addMovie(Movie &movie)
 {
     currentMovies.push_back(movie);
+    
 };
 
 //-----------------------------------------------------------------
@@ -60,40 +60,41 @@ void Customer::addMovie(Movie &movie)
 void Customer::borrowMovie(Movie &movie)
 {
     addMovie(movie);
-    
+    string temp = movie.getGenre() + movie.getDirector() + to_string(movie.getReleaseYear()) + movie.getTitle();
+	int key = stoi(temp);
+    StoreInventory.search(key).setStock(StoreInventory.search(key).getStock() - 1);
+    string message = "User borrowed: " + movie.getReleaseYear() + movie.getTitle(); 
+    transactionHistory.push_back(message);
 };
 
 //-----------------------------------------------------------------
 //return function; stock + 1
-void Customer::returnMovie()
+void Customer::returnMovie(Movie &movie)
 {
-    
+    for (int i = 0; i <= currentMovies.size(); i++)
+    {
+        if (currentMovies.at(i) == movie)
+        {
+            vector<Movie>::iterator it;
+            it = currentMovies.begin() + i; // might need to be i - 1
+            currentMovies.erase(it);
+        }
+    }
+    string temp = movie.getGenre() + movie.getDirector() + to_string(movie.getReleaseYear()) + movie.getTitle();
+	int key = stoi(temp);
+    StoreInventory.search(key).setStock(StoreInventory.search(key).getStock() + 1);
+
+    string message = "User returned: " + movie.getReleaseYear() + movie.getTitle(); 
+    transactionHistory.push_back(message);    
 };
 
 //-----------------------------------------------------------------
 //prints customer’s history of movie inventory to console
 void Customer::printInventoryHistory()
 {
-
-};
-
-//-----------------------------------------------------------------
-//prints customer’s history of transactions to console
-void Customer::printActionHistory()
-{
-
-};
-
-//-----------------------------------------------------------------
-//clears the customer’s history of movie inventory 
-void Customer::clearInventoryHistory()
-{
-
-};
-
-//-----------------------------------------------------------------
-//clears the customer’s history of transactions
-void Customer::clearActionHistory()
-{
-
+    for (auto i = 0; i <= transactionHistory.size(); i++)
+    {
+        int it = (int) i;
+        cout << transactionHistory.at(it) << endl;
+    }
 };
