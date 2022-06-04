@@ -3,7 +3,13 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include "inventory.h"
+#include <string>
+#include <sstream>
+#include <vector>
+#include "movieinventory.h"
+#include "classic.h"
+#include "comedy.h"
+#include "drama.h"
 
 using namespace std;
 
@@ -19,7 +25,7 @@ class Store
         void setStoreName(string &);
 
     private:
-        Inventory StoreInventory;
+        MovieInventory StoreInventory;
         CustomerDatabase StoreCustomerDatabase;
         string storeName;
 

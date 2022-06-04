@@ -41,7 +41,7 @@ int MovieInventory::hashFunction(int key)
 
 void MovieInventory::insert(Movie * moviPtr)
 {
-    string temp = moviPtr->getGenre + moviPtr->getDirector + to_string(moviPtr->getReleaseYear) + moviPtr->getTitle;
+    string temp = moviPtr->getGenre() + moviPtr->getDirector() + to_string(moviPtr->getReleaseYear()) + moviPtr->getTitle();
 	int key = stoi(temp);
     int hash = hashFunction(key);
 	while (table[hash] != nullptr && table[hash]->key != key)

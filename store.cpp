@@ -1,3 +1,4 @@
+
 #include "store.h"
 #include "customerdatabase.h"
 
@@ -23,7 +24,7 @@ void Store::readCommands(string &fileName)
         switch( (int)currentCommand[0] )
         {
             case 66: // B
-
+                
                 break;
             case 72: // H
 
@@ -67,9 +68,12 @@ void Store::readMovies(string &fileName)
     int stock;
     string director;
     string title;
-    int year;
-    string majorActor;
+    string actorFirst;
+    string actorLast;
+    int classicMonth;
+    int classicYear;
     string currentMovie = "";
+    vector<string> v;
     ifstream data;
     data.open(fileName);
     if (!data)
@@ -77,19 +81,32 @@ void Store::readMovies(string &fileName)
         cerr << "Error: file '" << fileName << "' could not be opened" << endl;
         exit(1);
     }
-    data >> currentMovie;
     while ( !data.eof() )
     {
+        data >> currentMovie;
+        string substr;
+        getline(data, substr, ','); // May be wrong for getline to seperate the commas, movie label may not be in the line
+        // data may be starting at the stock value
+        v.push_back(substr);
+        stringstream ss(v[4]);
         switch( (int)currentMovie[0] )
         {
             case 67: // C
-                
+                // Ingrid Bergman 8 1942
+                ss >> actorFirst;
+                ss >> actorLast;
+                ss >> classicMonth;
+                ss >> classicYear;
+                Classic *classics = new Classic(stoi(v[1]), v[2], v[3], actorFirst, actorLast, classicMonth, classicYear);
+                StoreInventory.insert(classics);
                 break;
             case 68: // D
-
+                Drama *dramas = new Drama(stoi(v[1]), v[2], v[3], stoi(v[4]));
+                StoreInventory.insert(dramas);
                 break;
             case 70: // F
-                
+                Comedy *comedies = new Comedy(stoi(v[1]), v[2], v[3], stoi(v[4]));
+                StoreInventory.insert(comedies);
                 break;
             default:
                 cerr << "Error: invalid movie type '" << currentMovie[0] << "'" << endl;
