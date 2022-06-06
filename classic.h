@@ -1,3 +1,18 @@
+// ----------------------------------------------------------------
+// classic.h
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 6, 2022
+// ----------------------------------------------------------------
+// Purpose - provide declarations for classic.cpp file
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// - inherits from Movie class
+// - has months for full release date
+// - has major actors' name
+// - has total stock of all movie instances
+// ----------------------------------------------------------------
+
 #ifndef CLASSIC_H
 #define CLASSIC_H
 #pragma once

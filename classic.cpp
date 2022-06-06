@@ -1,3 +1,15 @@
+// ----------------------------------------------------------------
+// classic.cpp
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 6, 2022
+// ----------------------------------------------------------------
+// Purpose - develops Classic class to initialize each classic movie
+// and to return privatized values for ease of access
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// ----------------------------------------------------------------
+
 #include "classic.h"
 #include <iostream>
 

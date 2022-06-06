@@ -1,3 +1,15 @@
+// ----------------------------------------------------------------
+// comedy.h
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 6, 2022
+// ----------------------------------------------------------------
+// Purpose - provide declarations for comedy.cpp file
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// - inherits from Movie class
+// ----------------------------------------------------------------
+
 #ifndef COMEDY_H
 #define COMEDY_H
 #pragma once;
