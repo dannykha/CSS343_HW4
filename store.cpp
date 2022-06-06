@@ -1,6 +1,5 @@
 
 #include "store.h"
-#include "customerdatabase.h"
 
 Store::Store(string &theName)
 {
@@ -12,7 +11,11 @@ void Store::readCommands(string &fileName)
 {
     string currentCommand = "";
     string customerID;
+    string mediaType;
+    string movieType;
+    string movieData;
     ifstream data;
+    vector<string> v;
     data.open(fileName);
     if (!data)
     {
@@ -24,17 +27,64 @@ void Store::readCommands(string &fileName)
         data >> currentCommand;
         switch( (int)currentCommand[0] )
         {
-            case 66: // B
-                
-                break;
-            case 72: // H
+            case 66: // (B)orrow
 
-                break;
-            case 73: // I
-                
-                break;
-            case 82: // R
+                data >> customerID;
+                data >> mediaType;
+                if (mediaType != "D")
+                {
+                    cerr << "Error: invalid media type '" << mediaType << "'" << endl;
+                }
+                else 
+                {
+                    data >> movieType;
+                    if (movieType == "F") // Comedy
+                    {
+                        string title;
+                        string releaseYear;
 
+                        getline(data, title, ',');
+                        data >> releaseYear;
+                        string key = "F" + releaseYear + title;
+                        Store::StoreCustomerDatabase.search(stoi(customerID))->borrowMovie(Store::StoreInventory.search(stoi(key)));
+                    }
+                    else if (movieType == "D") // Drama
+                    {
+                        string director;
+                        string title;
+
+                        getline(data, director, ',');
+                        getline(data, title, ',');
+
+                    }
+                    else if (movieType == "C") // Classic
+                    {
+                        string month;
+                        string year;
+                        string actorFirst;
+                        string actorLast;
+
+                        data >> month;
+                        data >> year;
+                        data >> actorFirst;
+                        data >> actorLast;
+
+                    }
+                    else
+                    {
+                        cerr << "Error: invalid movie type '" << movieType << "'" << endl;
+                    }
+                }
+                break;
+            case 72: // (H)istory
+                data >> customerID;
+                Store::StoreCustomerDatabase.search(stoi(customerID))->printInventoryHistory();
+                break;
+            case 73: // (I)nventory
+                Store::StoreInventory.printInventory();
+                break;
+            case 82: // (R)eturn
+                
                 break;
             default:
                 cerr << "Error: invalid command type '" << currentCommand[0] << "'" << endl;

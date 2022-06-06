@@ -39,11 +39,37 @@ int MovieInventory::hashFunction(int key)
     return key % modVal;
 }
 
-void MovieInventory::insert(Movie * moviPtr)
+void MovieInventory::insert(Movie *moviPtr)
 {
-    string temp = moviPtr->getGenre() + moviPtr->getDirector() + to_string(moviPtr->getReleaseYear()) + moviPtr->getTitle();
+	string temp;
+	if (moviPtr->getGenre() == "F") // Comedy
+	{
+		temp = moviPtr->getGenre() + to_string(moviPtr->getReleaseYear()) + moviPtr->getTitle();
+	}
+	else if (moviPtr->getGenre() == "D") // Drama
+	{
+		temp = moviPtr->getGenre() + moviPtr->getDirector() + moviPtr->getTitle();
+	}
+
 	int key = stoi(temp);
     int hash = hashFunction(key);
+	while (table[hash] != nullptr && table[hash]->key != key)
+    {
+        hash = hashFunction(hash + 1);
+    }
+	if (table[hash] != nullptr)
+    {
+        delete table[hash];
+    }
+	table[hash] = new HashElement(key, moviPtr);
+}
+
+void MovieInventory::insert(Classic *classicPtr) // Classic
+{
+	string temp;
+	temp = classicPtr->getGenre() + classicPtr->getReleaseDate() + classicPtr->getActor();
+
+	int hash = hashFunction(key);
 	while (table[hash] != nullptr && table[hash]->key != key)
     {
         hash = hashFunction(hash + 1);
