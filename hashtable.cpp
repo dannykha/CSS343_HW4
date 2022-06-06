@@ -36,7 +36,7 @@ int HashTable::hashFunction(int key)
 	return key % modVal;
 }
 
-void HashTable::insert(int key, Customer * custPtr)
+void HashTable::insert(int key, Customer *custPtr)
 {
 	int hash = hashFunction(key);
 	while (table[hash] != nullptr && table[hash]->key != key)
@@ -50,7 +50,7 @@ void HashTable::insert(int key, Customer * custPtr)
 	table[hash] = new HashElement(key, custPtr);
 }
 
-Customer * HashTable::search(int key)
+Customer* HashTable::search(int key)
 {
 	int hash = hashFunction(key);
 	while (table[hash] != nullptr && table[hash]->key != key)

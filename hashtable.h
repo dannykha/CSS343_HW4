@@ -25,7 +25,7 @@ class HashTable
         void destroy();
         int hashFunction(int key);
         void insert(int key, Customer *custPtr);
-        Customer *search(int key);
+        Customer* search(int key);
         void remove(int key);
     private:
         HashElement **table;

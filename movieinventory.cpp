@@ -81,7 +81,7 @@ void MovieInventory::insert(Classic *classicPtr) // Classic
 	table[hash] = new HashElement(key, moviPtr);
 }
 
-Movie * MovieInventory::search(int key)
+Movie* MovieInventory::search(int key)
 {
 	int hash = hashFunction(key);
 	while (table[hash] != nullptr && table[hash]->key != key)
