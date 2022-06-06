@@ -1,3 +1,16 @@
+// ----------------------------------------------------------------
+// customer.h
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 6, 2022
+// ----------------------------------------------------------------
+// Purpose - provide declarations for customer.cpp file
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// - has associations to Store class to implement storage of
+//   customers and movie inventory
+// ----------------------------------------------------------------
+
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
 #pragma once
@@ -13,18 +26,26 @@ class Customer
     public:
 
         Customer(int, string, string); // id, firstname, lastname
-        bool setName(string, string);
-        bool setName(string);
+
+        //setter functions
+        bool setName(string, string); //first and last name
+        bool setName(string); //full name
         bool setID(int);
 
-        string getName();
+        string getName(); //getter function to return name
 
         void printCurrInventory(); //print current inventory
 
         void addMovie(Movie &); // adds movie 
-        void borrowMovie(Movie &); // performs borrow for customer, records transaction in history
-        void returnMovie(Movie &); // performs return for customer, records transaction in history
-        void printInventoryHistory(); // prints customer’s history of movie inventory to console
+
+        // performs borrow for customer, records transaction in history
+        void borrowMovie(Movie &);
+
+        // performs return for customer, records transaction in history
+        void returnMovie(Movie &);
+
+        // prints customer’s history of movie inventory to console
+        void printInventoryHistory();
 
     private:
         int id;
@@ -32,8 +53,6 @@ class Customer
         string custLast;
         vector<Movie> currentMovies;
         vector<string> transactionHistory;
-    
 };
-
 
 #endif // CUSTOMER_H

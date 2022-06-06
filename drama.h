@@ -1,3 +1,15 @@
+// ----------------------------------------------------------------
+// drama.h
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 6, 2022
+// ----------------------------------------------------------------
+// Purpose - provide declarations for drama.cpp file
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// - inherits from Movie class
+// ----------------------------------------------------------------
+
 #ifndef DRAMA_H
 #define DRAMA_H
 #pragma once

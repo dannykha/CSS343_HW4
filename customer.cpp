@@ -1,3 +1,17 @@
+// ----------------------------------------------------------------
+// customer.cpp
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 6, 2022
+// ----------------------------------------------------------------
+// Purpose - develops Customer class to initialize each customer
+// and perform borrow and return as commanded by each customer
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// - movies and resulting customer transactions are stored in
+//   Store class
+// ----------------------------------------------------------------
+
 #include "customer.h"
 #include <iostream>
 #include <sstream>
@@ -17,7 +31,7 @@ bool Customer::setName(string first, string last)
 bool Customer::setName(string name)
 {
     std::stringstream s(name);
-    s>>custFirst>>custLast;
+    s >> custFirst >> custLast;
 };
 
 //-----------------------------------------------------------------
@@ -29,7 +43,7 @@ bool Customer::setID(int number)
 
 
 //-----------------------------------------------------------------
-//
+//name getter function
 string Customer::getName()
 {
     return custFirst + " " + custLast;
@@ -42,8 +56,7 @@ void Customer::printCurrInventory()
     for (auto i = currentMovies.begin(); i != currentMovies.end(); i++)
     {
         cout << *i << endl;
-    }
-    
+    };
 };
 
 
@@ -52,7 +65,6 @@ void Customer::printCurrInventory()
 void Customer::addMovie(Movie &movie)
 {
     currentMovies.push_back(movie);
-    
 };
 
 //-----------------------------------------------------------------
@@ -60,10 +72,13 @@ void Customer::addMovie(Movie &movie)
 void Customer::borrowMovie(Movie &movie)
 {
     addMovie(movie);
-    string temp = movie.getGenre() + movie.getDirector() + to_string(movie.getReleaseYear()) + movie.getTitle();
+    string temp = movie.getGenre() + movie.getDirector() + 
+        to_string(movie.getReleaseYear()) + movie.getTitle();
 	int key = stoi(temp);
-    Store::StoreInventory.search(key)->setStock(Store::StoreInventory.search(key)->getStock() - 1);
-    string message = "User borrowed: " + movie.getReleaseYear() + movie.getTitle(); 
+    Store::StoreInventory.search(key)->
+        setStock(Store::StoreInventory.search(key)->getStock() - 1);
+    string message = "User borrowed: " + movie.getReleaseYear()
+         + movie.getTitle(); 
     transactionHistory.push_back(message);
 };
 
@@ -78,13 +93,16 @@ void Customer::returnMovie(Movie &movie)
             vector<Movie>::iterator it;
             it = currentMovies.begin() + i; // might need to be i - 1
             currentMovies.erase(it);
-        }
+        };
     }
-    string temp = movie.getGenre() + movie.getDirector() + to_string(movie.getReleaseYear()) + movie.getTitle();
+    string temp = movie.getGenre() + movie.getDirector() + 
+        to_string(movie.getReleaseYear()) + movie.getTitle();
 	int key = stoi(temp);
-    Store::StoreInventory.search(key)->setStock(Store::StoreInventory.search(key)->getStock() + 1);
+    Store::StoreInventory.search(key)->
+        setStock(Store::StoreInventory.search(key)->getStock() + 1);
 
-    string message = "User returned: " + movie.getReleaseYear() + movie.getTitle(); 
+    string message = "User returned: " + movie.getReleaseYear() 
+        + movie.getTitle(); 
     transactionHistory.push_back(message);    
 };
 
