@@ -24,7 +24,7 @@ class Comedy : public Movie
         const string title, const int year);
         
         //destructor
-        virtual ~Comedy();
+        ~Comedy();
 };
 
 #endif // COMEDY_H

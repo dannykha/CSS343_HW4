@@ -13,6 +13,16 @@
 #include <iostream>
 #include <fstream>
 
+Movie::Movie()
+{
+
+}
+
+Movie::~Movie()
+{
+    
+}
+
 //-----------------------------------------------------------------
 //overloaded == operator
 bool Movie::operator==(Movie &movie)

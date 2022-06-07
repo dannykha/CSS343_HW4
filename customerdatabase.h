@@ -1,23 +1,34 @@
-#ifndef CUSTOMERDATABASE_H
-#define CUSTOMERDATABASE_H
+#ifndef HASTABLE_H
+#define HASTABLE_H
 #pragma once
-#include "HashTable.h"
-#include <iostream>
-#include <fstream>
+#define TABLE_SIZE 250
+#include "customer.h"
 
 using namespace std;
 
-class CustomerDatabase : public HashTable
+class HashElementCust
+{
+    public:
+        int key;
+        Customer *customer;
+        HashElementCust(int k, Customer *cust) {
+            key = k;
+            customer = cust;
+        }
+};
+
+class CustomerDatabase
 {
     public:
         CustomerDatabase();
         ~CustomerDatabase();
-
-
+        void destroy();
+        int hashFunction(int key);
+        void insert(int key, Customer *custPtr);
+        Customer* search(int key);
+        void remove(int key);
     private:
-
-
+        HashElementCust **table;
 };
 
-
-#endif // CUSTOMERDATABASE_H
+#endif // HASTABLE_H

@@ -24,6 +24,6 @@ class Drama : public Movie
         const string title, const int year);
         
         //destructor
-        virtual ~Drama();
+        ~Drama();
 };
 #endif // DRAMA_H
