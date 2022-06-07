@@ -20,6 +20,12 @@
 
 using namespace std;
 
+Customer::Customer(int a, string b , string c)
+{
+    setID(a);
+    setName(b, c);
+};
+
 //name setter function
 void Customer::setName(string first, string last)
 {
