@@ -16,14 +16,13 @@
 #ifndef MOVIE_H
 #define MOVIE_H
 #pragma once
-#include "media.h"
 #include <iostream>
 #include <fstream>
 
 
 using namespace std;
 
-class Movie : public Media
+class Movie
 {
     public:
         //default constructor to be overloaded by each genre class

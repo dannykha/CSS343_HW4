@@ -28,7 +28,7 @@ void Store::readCommands(string &fileName)
         switch( (int)currentCommand[0] )
         {
             case 66: // (B)orrow
-
+            {
                 data >> customerID;
                 data >> mediaType;
                 if (mediaType != "D")
@@ -83,15 +83,21 @@ void Store::readCommands(string &fileName)
                         cerr << "Error: invalid movie type '" << movieType << "'" << endl;
                     }
                 }
+            }
                 break;
             case 72: // (H)istory
+            {
                 data >> customerID;
                 Store::StoreCustomerDatabase.search(stoi(customerID))->printInventoryHistory();
+            }
                 break;
             case 73: // (I)nventory
+            {
                 Store::StoreInventory.printInventory();
+            }
                 break;
             case 82: // (R)eturn
+            {
                 data >> movieType;
                  if (movieType == "F") // Comedy
                     {
@@ -137,9 +143,12 @@ void Store::readCommands(string &fileName)
                     {
                         cerr << "Error: invalid movie type '" << movieType << "'" << endl;
                     }
+            }
                 break;
             default:
+            {
                 cerr << "Error: invalid command type '" << currentCommand[0] << "'" << endl;
+            }
         }
     }
 }
@@ -199,23 +208,33 @@ void Store::readMovies(string &fileName)
         switch( (int)currentMovie[0] )
         {
             case 67: // C
+            {
                 ss >> actorFirst;
                 ss >> actorLast;
                 ss >> classicMonth;
                 ss >> classicYear;
                 Classic *classics = new Classic(stoi(v[0]), v[1], v[2], actorFirst, actorLast, classicMonth, classicYear);
                 StoreInventory.insert(classics);
+            }
                 break;
             case 68: // D
+            {
                 Drama *dramas = new Drama(stoi(v[0]), v[1], v[2], stoi(v[3]));
                 StoreInventory.insert(dramas);
+            }
                 break;
+    
             case 70: // F
+            {
                 Comedy *comedies = new Comedy(stoi(v[0]), v[1], v[2], stoi(v[3]));
                 StoreInventory.insert(comedies);
+            }
                 break;
             default:
+            {
                 cerr << "Error: invalid movie type '" << currentMovie[0] << "'" << endl;
+                break;
+            }
         }
     }
 }

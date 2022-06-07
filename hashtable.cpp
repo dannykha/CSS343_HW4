@@ -5,7 +5,7 @@ using namespace std;
 
 HashTable::HashTable()
 {
-	table = new HashElement *[TABLE_SIZE];
+	table = new HashElementCust *[TABLE_SIZE];
 	for (int i = 0; i < TABLE_SIZE; i++)
     {
         table[i] = nullptr;
@@ -47,7 +47,7 @@ void HashTable::insert(int key, Customer *custPtr)
     {
         delete table[hash];
     }
-	table[hash] = new HashElement(key, custPtr);
+	table[hash] = new HashElementCust(key, custPtr);
 }
 
 Customer* HashTable::search(int key)
