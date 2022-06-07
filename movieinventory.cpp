@@ -1,5 +1,6 @@
 #include "movieinventory.h"
 #include <iostream> 
+#include <algorithm>
 #include <cmath>
 
 using namespace std;
@@ -68,7 +69,7 @@ void MovieInventory::insert(Classic *classicPtr) // Classic
 {
 	string temp;
 	temp = classicPtr->getGenre() + classicPtr->getReleaseDate() + classicPtr->getActor();
-
+	int key = stoi(temp);
 	int hash = hashFunction(key);
 	while (table[hash] != nullptr && table[hash]->key != key)
     {
@@ -78,7 +79,7 @@ void MovieInventory::insert(Classic *classicPtr) // Classic
     {
         delete table[hash];
     }
-	table[hash] = new HashElement(key, moviPtr);
+	table[hash] = new HashElement(key, classicPtr);
 }
 
 Movie* MovieInventory::search(int key)
@@ -121,47 +122,46 @@ void MovieInventory::remove(int key)
 	cout << "Element Deleted" << endl; 
 }
 
-void printInventory()
+void MovieInventory::printInventory()
 {
 	sortMovies();
-	for (auto i = vecMovie.begin(); i != vecMovie.end(); i++)
+	for (int i = 0; i < vecMovie.size(); i++)
 	{
-		vector<Movie>::iterator it;
-		it = i;
+		
 		cout << "Printing the inventory...";
 		cout << "Title	Genre	Stock	Year	Director";
-		cout << vecMovie.at(it).getTitle() << " ";
-		cout << vecMovie.at(it).getGenre() << " ";
-		cout << vecMovie.at(it).getStock() << " ";
-		cout << vecMovie.at(it).getReleaseYear() << " ";
-		cout << vecMovie.at(it).getDirector() << " ";
+		cout << vecMovie.at(i).getTitle() << " ";
+		cout << vecMovie.at(i).getGenre() << " ";
+		cout << vecMovie.at(i).getStock() << " ";
+		cout << vecMovie.at(i).getReleaseYear() << " ";
+		cout << vecMovie.at(i).getDirector() << " ";
 		cout << endl;
 	}
 }
 
-void sortMovies()
+void MovieInventory::sortMovies()
 {
 	numComedy = 0;
 	numDrama = 0;
 	numClassic = 0;
 	for (auto i = 0; i < TABLE_SIZE; i++) 
 	{
-		if (table[i].getGenre() == "C")
+		if (table[i]->movie->getGenre() == "C")
 		{
 			numClassic += 1;
 		}
-		else if (table[i].getGenre() == "F")
+		else if (table[i]->movie->getGenre() == "F")
 		{
 			numComedy += 1;
 		}
-		else if (table[i].getGenre() == "D")
+		else if (table[i]->movie->getGenre() == "D")
 		{
 			numDrama += 1;
 		}
-		vecMovie.push_back(table[i]);
+		vecMovie.push_back(*table[i]->movie);
 	}
-	vecMovie.sort(vecMovie.begin(), vecMovie.end(), compareGenre);
-	vecMovie.sort(vecMovie.begin(), numComedy, compareTitle);
+	sort(vecMovie.begin(), vecMovie.end(), compareGenre);
+	sort(vecMovie.begin(), vecMovie.begin() + numComedy, compareTitle);
 	// iterator through the comdey, use two pointers, 
 	// if the first pointer and the second pointer equal the same title, 
 	// then swap those based on year released
@@ -174,13 +174,13 @@ void sortMovies()
 		j = itr2;
 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
 		{
-			vecMovie.sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareComedyYear);
+			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareComedyYear);
 		}
 		itr1++;
 	}
 
 	// For drama
-	vecMovie.sort(vecMovie.begin() + numComedy, vecMovie.begin() + numDrama, compareDramaDirector);
+	sort(vecMovie.begin() + numComedy, vecMovie.begin() + numDrama, compareDramaDirector);
 	itr1 = numComedy;
 	itr2 = numComedy;
 	for (int k = numComedy; k <= numComedy + numDrama; k++)
@@ -189,13 +189,13 @@ void sortMovies()
 		k = itr2;
 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
 		{
-			vecMovie.sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareTitle);
+			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareTitle);
 		}
 		itr1++;
 	}
 
 	// For classic
-	vecMovie.sort(vecMovie.begin() + numComedy + numDrama, vecMovie.end(), compareClassicRelease);
+	sort(vecMovie.begin() + numComedy + numDrama, vecMovie.end(), compareClassicRelease);
 	itr1 = numComedy + numDrama;
 	itr2 = numComedy + numDrama;
 	for (int l = numComedy; l <= numComedy + numDrama; l++)
@@ -204,7 +204,7 @@ void sortMovies()
 		l = itr2;
 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
 		{
-			vecMovie.sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareClassicActor);
+			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareClassicActor);
 		}
 		itr1++;
 	}
