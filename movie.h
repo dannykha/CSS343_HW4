@@ -1,3 +1,18 @@
+// ----------------------------------------------------------------
+// movie.h
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 7, 2022
+// ----------------------------------------------------------------
+// Purpose - provide declarations for movie.cpp file
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// - is inherited by Comedy, Drama, and Classic classes
+// - setters and getters for ease of access to private variables
+// - overloaded comparison operators to ensure that movies are 
+//   properly selected
+// ----------------------------------------------------------------
+
 #ifndef MOVIE_H
 #define MOVIE_H
 #pragma once

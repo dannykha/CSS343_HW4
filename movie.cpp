@@ -1,3 +1,14 @@
+// ----------------------------------------------------------------
+// movie.cpp
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 7, 2022
+// ----------------------------------------------------------------
+// Purpose - develops Movie class to initialize each movie
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// ----------------------------------------------------------------
+
 #include "movie.h"
 #include <iostream>
 #include <fstream>
