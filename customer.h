@@ -17,7 +17,6 @@
 #include <iostream>
 #include "movie.h"
 #include "movieinventory.h"
-#include "store.h"
 
 using namespace std;
 
@@ -28,9 +27,9 @@ class Customer
         Customer(int, string, string); // id, firstname, lastname
 
         //setter functions
-        bool setName(string, string); //first and last name
-        bool setName(string); //full name
-        bool setID(int);
+        void setName(string, string); //first and last name
+        void setName(string); //full name
+        void setID(int);
 
         string getName(); //getter function to return name
 

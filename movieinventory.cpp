@@ -122,7 +122,7 @@ void MovieInventory::remove(int key)
 
 void MovieInventory::printInventory()
 {
-	sortMovies();
+	// sortMovies();
 	for (int i = 0; i < vecMovie.size(); i++)
 	{
 		
@@ -137,103 +137,103 @@ void MovieInventory::printInventory()
 	}
 }
 
-void MovieInventory::sortMovies()
-{
-	numComedy = 0;
-	numDrama = 0;
-	numClassic = 0;
-	for (auto i = 0; i < TABLE_SIZE; i++) 
-	{
-		if (table[i]->movie->getGenre() == "C")
-		{
-			numClassic += 1;
-		}
-		else if (table[i]->movie->getGenre() == "F")
-		{
-			numComedy += 1;
-		}
-		else if (table[i]->movie->getGenre() == "D")
-		{
-			numDrama += 1;
-		}
-		vecMovie.push_back(*table[i]->movie);
-	}
-	sort(vecMovie.begin(), vecMovie.end(), compareGenre);
-	sort(vecMovie.begin(), vecMovie.begin() + numComedy, compareTitle);
-	// iterator through the comdey, use two pointers, 
-	// if the first pointer and the second pointer equal the same title, 
-	// then swap those based on year released
-	int itr1 = 0;
-	int itr2 = 0;
-	// For comedy
-	for (int j = 0; j < numComedy; j++)
-	{
-		itr2++;
-		j = itr2;
-		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
-		{
-			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareComedyYear);
-		}
-		itr1++;
-	}
+// void MovieInventory::sortMovies()
+// {
+// 	numComedy = 0;
+// 	numDrama = 0;
+// 	numClassic = 0;
+// 	for (auto i = 0; i < TABLE_SIZE; i++) 
+// 	{
+// 		if (table[i]->movie->getGenre() == "C")
+// 		{
+// 			numClassic += 1;
+// 		}
+// 		else if (table[i]->movie->getGenre() == "F")
+// 		{
+// 			numComedy += 1;
+// 		}
+// 		else if (table[i]->movie->getGenre() == "D")
+// 		{
+// 			numDrama += 1;
+// 		}
+// 		vecMovie.push_back(*table[i]->movie);
+// 	}
+// 	sort(vecMovie.begin(), vecMovie.end(), compareGenre);
+// 	sort(vecMovie.begin(), vecMovie.begin() + numComedy, compareTitle);
+// 	// iterator through the comdey, use two pointers, 
+// 	// if the first pointer and the second pointer equal the same title, 
+// 	// then swap those based on year released
+// 	int itr1 = 0;
+// 	int itr2 = 0;
+// 	// For comedy
+// 	for (int j = 0; j < numComedy; j++)
+// 	{
+// 		itr2++;
+// 		j = itr2;
+// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
+// 		{
+// 			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareComedyYear);
+// 		}
+// 		itr1++;
+// 	}
 
-	// For drama
-	sort(vecMovie.begin() + numComedy, vecMovie.begin() + numDrama, compareDramaDirector);
-	itr1 = numComedy;
-	itr2 = numComedy;
-	for (int k = numComedy; k <= numComedy + numDrama; k++)
-	{
-		itr2++;
-		k = itr2;
-		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
-		{
-			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareTitle);
-		}
-		itr1++;
-	}
+// 	// For drama
+// 	sort(vecMovie.begin() + numComedy, vecMovie.begin() + numDrama, compareDramaDirector);
+// 	itr1 = numComedy;
+// 	itr2 = numComedy;
+// 	for (int k = numComedy; k <= numComedy + numDrama; k++)
+// 	{
+// 		itr2++;
+// 		k = itr2;
+// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
+// 		{
+// 			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareTitle);
+// 		}
+// 		itr1++;
+// 	}
 
-	// For classic
-	sort(vecMovie.begin() + numComedy + numDrama, vecMovie.end(), compareClassicRelease);
-	itr1 = numComedy + numDrama;
-	itr2 = numComedy + numDrama;
-	for (int l = numComedy; l <= numComedy + numDrama; l++)
-	{
-		itr2++;
-		l = itr2;
-		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
-		{
-			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareClassicActor);
-		}
-		itr1++;
-	}
-}
+// 	// For classic
+// 	sort(vecMovie.begin() + numComedy + numDrama, vecMovie.end(), compareClassicRelease);
+// 	itr1 = numComedy + numDrama;
+// 	itr2 = numComedy + numDrama;
+// 	for (int l = numComedy; l <= numComedy + numDrama; l++)
+// 	{
+// 		itr2++;
+// 		l = itr2;
+// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
+// 		{
+// 			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareClassicActor);
+// 		}
+// 		itr1++;
+// 	}
+// }
 
-bool MovieInventory::compareGenre(Movie m1, Movie m2)
-{
-	return (m1.getGenre() < m2.getGenre());
-}
+// bool MovieInventory::compareGenre(Movie m1, Movie m2)
+// {
+// 	return (m1.getGenre() < m2.getGenre());
+// }
 
-bool MovieInventory::compareTitle(Movie m1, Movie m2)
-{
-	return (m1.getTitle() < m2.getTitle());
-}
+// bool MovieInventory::compareTitle(Movie m1, Movie m2)
+// {
+// 	return (m1.getTitle() < m2.getTitle());
+// }
 
-bool MovieInventory::compareComedyYear(Movie m1, Movie m2)
-{
-	return (m1.getReleaseYear() < m2.getReleaseYear());
-}
+// bool MovieInventory::compareComedyYear(Movie m1, Movie m2)
+// {
+// 	return (m1.getReleaseYear() < m2.getReleaseYear());
+// }
 
-bool MovieInventory::compareDramaDirector(Movie m1, Movie m2)
-{
-	return (m1.getDirector() < m2.getDirector());
-}
+// bool MovieInventory::compareDramaDirector(Movie m1, Movie m2)
+// {
+// 	return (m1.getDirector() < m2.getDirector());
+// }
 
-bool MovieInventory::compareClassicRelease(Classic m1, Classic m2)
-{
-	return (m1.getReleaseDate() < m2.getReleaseDate());
-}
+// bool MovieInventory::compareClassicRelease(Classic m1, Classic m2)
+// {
+// 	return (m1.getReleaseDate() < m2.getReleaseDate());
+// }
 
-bool MovieInventory::compareClassicActor(Classic m1, Classic m2)
-{
-	return (m1.getActor() < m2.getActor());
-}
+// bool MovieInventory::compareClassicActor(Classic m1, Classic m2)
+// {
+// 	return (m1.getActor() < m2.getActor());
+// }

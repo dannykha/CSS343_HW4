@@ -16,11 +16,11 @@
 Comedy::Comedy(const int stock, const string director, 
 const string title, const int year)
 {
-    Movie::setStock(stock);
-    Movie::setDirector(director);
-    Movie::setTitle(title);
-    Movie::setReleaseYear(year);
-    Movie::setGenre("F");
+    setStock(stock);
+    setDirector(director);
+    setTitle(title);
+    setReleaseYear(year);
+    setGenre("F");
 };
 
 //-----------------------------------------------------------------
