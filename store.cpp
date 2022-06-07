@@ -3,7 +3,7 @@
 
 Store::Store()
 {
-
+    
 }
 
 Store::~Store()
@@ -118,7 +118,7 @@ void Store::readCommands(string &fileName)
                         data >> releaseYear;
                         string key = "F" + releaseYear + title;
                         Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = StoreInventory.search(stoi(key));
+                        Movie* movie = Store::StoreInventory.search(stoi(key));
                         cust->returnMovie(*movie);
                     }
                     else if (movieType == "D") // Drama
@@ -130,7 +130,7 @@ void Store::readCommands(string &fileName)
                         getline(data, title, ',');
                         string key = "D" + director + title;
                         Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = StoreInventory.search(stoi(key));
+                        Movie* movie = Store::StoreInventory.search(stoi(key));
                         cust->returnMovie(*movie);
                     }
                     else if (movieType == "C") // Classic
@@ -146,7 +146,7 @@ void Store::readCommands(string &fileName)
                         data >> actorLast;
                         string key = "C" + month + year + actorFirst + actorLast;
                         Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = StoreInventory.search(stoi(key));
+                        Movie* movie = Store::StoreInventory.search(stoi(key));
                         cust->returnMovie(*movie);
                     }
                     else
@@ -187,7 +187,6 @@ void Store::readCustomers(string &fileName)
 
 void Store::readMovies(string &fileName)
 {
-    int stock;
     string director;
     string title;
     string actorFirst;
@@ -224,20 +223,20 @@ void Store::readMovies(string &fileName)
                 ss >> classicMonth;
                 ss >> classicYear;
                 Classic *classics = new Classic(stoi(v[0]), v[1], v[2], actorFirst, actorLast, classicMonth, classicYear);
-                StoreInventory.insert(classics);
+                Store::StoreInventory.insert(classics);
             }
                 break;
             case 68: // D
             {
                 Drama *dramas = new Drama(stoi(v[0]), v[1], v[2], stoi(v[3]));
-                StoreInventory.insert(dramas);
+                Store::StoreInventory.insert(dramas);
             }
                 break;
     
             case 70: // F
             {
                 Comedy *comedies = new Comedy(stoi(v[0]), v[1], v[2], stoi(v[3]));
-                StoreInventory.insert(comedies);
+                Store::StoreInventory.insert(comedies);
             }
                 break;
             default:

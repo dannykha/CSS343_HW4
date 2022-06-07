@@ -1,4 +1,4 @@
-#include "storebuilder.h"
+#include "StoreBuilder.h"
 
 StoreBuilder::StoreBuilder() 
 {
