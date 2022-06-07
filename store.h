@@ -17,6 +17,7 @@ using namespace std;
 class Store
 {
     public:
+        Store();
         Store(string &);
         ~Store();
         void readMovies(string &);

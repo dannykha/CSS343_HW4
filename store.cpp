@@ -1,10 +1,20 @@
 
 #include "store.h"
 
+Store::Store()
+{
+
+}
+
+Store::~Store()
+{
+
+}
+
+
 Store::Store(string &theName)
 {
     this->storeName = theName;
-
 }
 
 void Store::readCommands(string &fileName)

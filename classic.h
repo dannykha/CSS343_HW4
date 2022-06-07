@@ -30,7 +30,7 @@ class Classic : public Movie
         const int month, const int year);
         
         //destructor
-        virtual ~Classic();
+        ~Classic();
 
         //getter functions
         string getActor(); //return actor name
