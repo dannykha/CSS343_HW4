@@ -123,7 +123,7 @@ void MovieInventory::remove(int key)
 void MovieInventory::printInventory()
 {
 	// sortMovies();
-	for (int i = 0; i < vecMovie.size(); i++)
+	for (long unsigned int i = 0; i < vecMovie.size(); i++)
 	{
 		
 		cout << "Printing the inventory...";

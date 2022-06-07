@@ -13,7 +13,7 @@
 
 #include <iostream>
 #include "store.h"
-#include "storebuilder.h"
+#include "StoreBuilder.h"
 using namespace std;
 
 int main()
