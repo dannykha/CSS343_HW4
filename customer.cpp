@@ -20,6 +20,12 @@
 
 using namespace std;
 
+ostream& operator <<(ostream& out, Customer &rhs)
+{
+    out << rhs.getName();
+    return out;
+};
+
 Customer::Customer(int a, string b , string c)
 {
     setID(a);
