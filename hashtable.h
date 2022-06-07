@@ -6,12 +6,12 @@
 
 using namespace std;
 
-class HashElement
+class HashElementCust
 {
     public:
         int key;
         Customer *customer;
-        HashElement(int k, Customer *cust) {
+        HashElementCust(int k, Customer *cust) {
             key = k;
             customer = cust;
         }
@@ -28,8 +28,7 @@ class HashTable
         Customer* search(int key);
         void remove(int key);
     private:
-        HashElement **table;
+        HashElementCust **table;
 };
-
 
 #endif // HASTABLE_H

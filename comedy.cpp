@@ -10,8 +10,6 @@
 // ----------------------------------------------------------------
 
 #include "comedy.h"
-#include "borrow.h"
-#include "return.h"
 #include <iostream>
 
 //constructor

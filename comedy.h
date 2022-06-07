@@ -12,7 +12,7 @@
 
 #ifndef COMEDY_H
 #define COMEDY_H
-#pragma once;
+#pragma once
 #include <iostream>
 #include "movie.h"
 

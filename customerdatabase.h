@@ -1,8 +1,8 @@
 #ifndef CUSTOMERDATABASE_H
 #define CUSTOMERDATABASE_H
 #pragma once
+#include "HashTable.h"
 #include <iostream>
-#include "hashtable.h"
 #include <fstream>
 
 using namespace std;
