@@ -1,6 +1,8 @@
 
 #include "store.h"
 
+MovieInventory Store::StoreInventory;
+
 Store::Store()
 {
     
