@@ -46,6 +46,8 @@ class Customer
         // prints customer’s history of movie inventory to console
         void printInventoryHistory();
 
+        friend ostream& operator<< (ostream& out, Customer &rhs);
+
     private:
         int id;
         string custFirst;
@@ -53,5 +55,7 @@ class Customer
         vector<Movie> currentMovies;
         vector<string> transactionHistory;
 };
+
+
 
 #endif // CUSTOMER_H
