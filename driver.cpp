@@ -18,21 +18,29 @@ using namespace std;
 
 int main()
 {
+    cout << "(1/2) Building store..." << endl;
     //initliaze store
     StoreBuilder Stor;
     string storeName = "store0";
     Stor.addStore(storeName);
-    
-    //read commands from txt file and initialize
-    string commandsFile = "data4commands.txt";
-    Stor.getStore(0).readCommands(commandsFile);
-    
+    cout << "(2/2) Store 0 created" << endl;
+    /*
+    cout << "(1/2) Establishing customer database" << endl;
     //read customers from txt file and initialize
     string customerFile = "data4customers.txt";
     Stor.getStore(0).readCustomers(customerFile);
-    
+    cout << "(2/2) Customer database successfully created" << endl;
+    */
+    cout << "(1/2) Establishing Movie database" << endl;
     //read movies from txt file and initalize
     string moviesFile = "data4movies.txt";
     Stor.getStore(0).readMovies(moviesFile);
+    cout << "(2/2) Movie database created successfully" << endl;
+
+    cout << "(1/2) Running customer commands" << endl;
+    //read commands from txt file and initialize
+    string commandsFile = "data4commands.txt";
+    Stor.getStore(0).readCommands(commandsFile);
+    cout << "(2/2) All Tasks completed" << endl;
 }
 

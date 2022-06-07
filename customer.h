@@ -30,6 +30,7 @@ class Customer
         void setName(string, string); //first and last name
         void setName(string); //full name
         void setID(int);
+        int getID();
 
         string getName(); //getter function to return name
 

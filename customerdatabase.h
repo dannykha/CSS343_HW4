@@ -11,7 +11,15 @@ class HashElementCust
     public:
         int key;
         Customer *customer;
-        HashElementCust(int k, Customer *cust) {
+        Customer temp = Customer(0, "first", "last");
+	    Customer* tempPtr = &temp;
+        HashElementCust()
+        {
+            key = 0;
+            customer = tempPtr;
+        }
+        HashElementCust(int k, Customer *cust)
+        {
             key = k;
             customer = cust;
         }
@@ -28,7 +36,7 @@ class CustomerDatabase
         Customer* search(int key);
         void remove(int key);
     private:
-        HashElementCust **table;
+        HashElementCust table[TABLE_SIZE];
 };
 
 #endif // HASTABLE_H

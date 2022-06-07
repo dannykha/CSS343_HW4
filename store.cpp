@@ -171,18 +171,25 @@ void Store::readCustomers(string &fileName)
     string custFirst;
     string custLast;
     ifstream data;
+    cout << "Opening Customer file" << endl;
     data.open(fileName);
     if (!data)
     {
         cerr << "Error: file '" << fileName << "' could not be opened" << endl;
         exit(1);
     }
-    
+    cout << "Customer file opened" << endl;
     while ( !data.eof() )
     {
-        data >> customerID >> custFirst >> custLast;
+        data >> customerID >> custLast >> custFirst;
+        cout << "Customer ready to process with the following data" << endl;
+        cout << "Customer ID - First Name - Last Name" << endl;
+        cout << customerID << "         " << custFirst << "   " << custLast << endl; 
         Customer *cust = new Customer(customerID, custFirst, custLast);
+        cout << "Customer created successfully" << endl;
+        cout << "Adding customer to database" << endl;
         StoreCustomerDatabase.insert(customerID, cust);
+        cout << "Customer added successfully" << endl << endl;
         // DONT FORGET TO DESTRUCT
     }
 }
