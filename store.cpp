@@ -92,7 +92,51 @@ void Store::readCommands(string &fileName)
                 Store::StoreInventory.printInventory();
                 break;
             case 82: // (R)eturn
-                
+                data >> movieType;
+                 if (movieType == "F") // Comedy
+                    {
+                        string title;
+                        string releaseYear;
+
+                        getline(data, title, ',');
+                        data >> releaseYear;
+                        string key = "F" + releaseYear + title;
+                        Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Movie* movie = StoreInventory.search(stoi(key));
+                        cust->returnMovie(*movie);
+                    }
+                    else if (movieType == "D") // Drama
+                    {
+                        string director;
+                        string title;
+
+                        getline(data, director, ',');
+                        getline(data, title, ',');
+                        string key = "D" + director + title;
+                        Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Movie* movie = StoreInventory.search(stoi(key));
+                        cust->returnMovie(*movie);
+                    }
+                    else if (movieType == "C") // Classic
+                    {
+                        string month;
+                        string year;
+                        string actorFirst;
+                        string actorLast;
+
+                        data >> month;
+                        data >> year;
+                        data >> actorFirst;
+                        data >> actorLast;
+                        string key = "C" + month + year + actorFirst + actorLast;
+                        Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Movie* movie = StoreInventory.search(stoi(key));
+                        cust->returnMovie(*movie);
+                    }
+                    else
+                    {
+                        cerr << "Error: invalid movie type '" << movieType << "'" << endl;
+                    }
                 break;
             default:
                 cerr << "Error: invalid command type '" << currentCommand[0] << "'" << endl;
