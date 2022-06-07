@@ -13,6 +13,7 @@
 // ----------------------------------------------------------------
 
 #include "customer.h"
+#include "store.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -20,7 +21,7 @@
 using namespace std;
 
 //name setter function
-bool Customer::setName(string first, string last)
+void Customer::setName(string first, string last)
 {
     this->custFirst = first;
     this->custLast = last;
@@ -28,7 +29,7 @@ bool Customer::setName(string first, string last)
 
 //-----------------------------------------------------------------
 //name setter function
-bool Customer::setName(string name)
+void Customer::setName(string name)
 {
     std::stringstream s(name);
     s >> custFirst >> custLast;
@@ -36,7 +37,7 @@ bool Customer::setName(string name)
 
 //-----------------------------------------------------------------
 //ID number setter function
-bool Customer::setID(int number)
+void Customer::setID(int number)
 {
     this->id = number;
 };
