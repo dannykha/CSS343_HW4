@@ -72,6 +72,10 @@ void Customer::printCurrInventory()
     };
 };
 
+int Customer::getID()
+{
+    return id;
+};
 
 //-----------------------------------------------------------------
 //adds movie 
