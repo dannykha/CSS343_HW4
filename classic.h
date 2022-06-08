@@ -35,6 +35,7 @@ class Classic : public Movie
         //getter functions
         string getActor(); //return actor name
         string getReleaseDate(); //return release date
+        int getTotalStock();
 
     private:
         string actorFirst;

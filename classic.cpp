@@ -45,3 +45,8 @@ string Classic::getReleaseDate()
 {
     return (month + " " + getReleaseYear());
 };
+
+int Classic::getTotalStock()
+{
+    return totalStock;
+};
