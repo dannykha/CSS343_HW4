@@ -1,28 +1,26 @@
 // ----------------------------------------------------------------
-// movieinventory.cpp
+// MovieInventory.cpp
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
 // Date of Last Modification: June 7, 2022
 // ----------------------------------------------------------------
-// Purpose - develops MovieInventory class
+// Purpose - develops MovieInventory class to implement HashTable
+// to initialize each customer, ID pair
 // ----------------------------------------------------------------
 // Notes on specifications, special algorithms, and assumptions:
 // ----------------------------------------------------------------
 
 #include "movieinventory.h"
-
+#include <iostream> 
 
 using namespace std;
-
-const int PRIME_CONST = 31;
 
 //constructor
 MovieInventory::MovieInventory()
 {
-	table = new HashElement *[TABLE_SIZE];
 	for (int i = 0; i < TABLE_SIZE; i++)
     {
-        table[i] = nullptr;
+        table[i] = HashElementMovie();
     }
 }
 
@@ -34,93 +32,180 @@ MovieInventory::~MovieInventory()
 }
 
 //-----------------------------------------------------------------
-//destructor helper function
+//destructor helper
 void MovieInventory::destroy()
 {
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		if (table[i] != nullptr)
-		{
-			delete table[i]->movie;
-			delete table[i];
-		}
+		
+		table[i].movie = nullptr;
 	}
-	delete[] table;
+	
 }
 
 //-----------------------------------------------------------------
 //hash function, turns key into a hashvalue
 int MovieInventory::hashFunction(int key)
 {
-	int modVal = TABLE_SIZE - 1;
-    return key % modVal;
+	int modVal = TABLE_SIZE;
+	return key % modVal;
 }
 
 //-----------------------------------------------------------------
-//general insert movie function
-void MovieInventory::insert(Movie *moviPtr)
+//insert function
+void MovieInventory::insert(int key, Movie *moviPtr)
 {
-	string temp;
-	if (moviPtr->getGenre() == "F") // Comedy
-	{
-		temp = moviPtr->getGenre() + to_string(moviPtr->getReleaseYear()) 
-			+ moviPtr->getTitle();
-	}
-	else if (moviPtr->getGenre() == "D") // Drama
-	{
-		temp = moviPtr->getGenre() + moviPtr->getDirector() + moviPtr->getTitle();
-	}
-
-	int key = stoi(temp);
-    int hash = hashFunction(key);
-	while (table[hash] != nullptr && table[hash]->key != key)
-    {
-        hash = hashFunction(hash + 1);
-    }
-	if (table[hash] != nullptr)
-    {
-        delete table[hash];
-    }
-	table[hash] = new HashElement(key, moviPtr);
-}
-
-//-----------------------------------------------------------------
-//insert classic movie function
-void MovieInventory::insert(Classic *classicPtr) // Classic
-{
-	string temp;
-	temp = classicPtr->getGenre() + classicPtr->getReleaseDate() 
-		+ classicPtr->getActor();
-	int key = stoi(temp);
+	//hash the user id
 	int hash = hashFunction(key);
-	while (table[hash] != nullptr && table[hash]->key != key)
-    {
-        hash = hashFunction(hash + 1);
-    }
-	if (table[hash] != nullptr)
-    {
-        delete table[hash];
-    }
-	table[hash] = new HashElement(key, classicPtr);
+	bool good = true;
+
+	while (hash < TABLE_SIZE)
+	{
+		if (hash == 0)
+		{
+			hash = 1;
+		}
+		if (table[hash].key == 0)
+		{
+			// inserts the account
+			table[hash].key = hash;
+			table[hash].movie = moviPtr;
+			return;
+		}
+
+		//this makes sure the spot you're trying to insert is not a duplicate account
+		// if (table[hash].movie->getName() == moviPtr->getName() )
+		// {
+		// 	cout << "Duplicate accounts not allowed, " 
+		// 	<< "skipping account creation" << endl;
+		// 	return;
+		// }
+
+		//find a good spot for our insertion
+
+		hash++; 
+		// goes over array 1.5x, can make faster, by remembering 
+		//initial hash value, and stopping once it reaches that, stopping
+		// it from going over what it's already gone over
+		// during the first half of checks
+		if (good && hash == TABLE_SIZE)
+		{
+			hash = 1;
+			good = false;
+		}
+	}
+}
+
+//-----------------------------------------------------------------
+// classic movie insert
+void MovieInventory::insert(int key, Classic* classicPtr)
+{
+	//hash the user id
+	int hash = hashFunction(key);
+	bool good = true;
+	int stock = 0;
+
+	while (hash < TABLE_SIZE)
+	{
+		if (hash == 0)
+		{
+			hash = 1;
+		}
+		if (table[hash].key == 0)
+		{
+			// inserts the account
+			table[hash].key = hash;
+			table[hash].movie = classicPtr;
+			return;
+		}
+
+		//this makes sure the spot you're trying to insert is not a duplicate account
+		// if (table[hash].movie->getName() == moviPtr->getName() )
+		// {
+		// 	cout << "Duplicate accounts not allowed, " 
+		// 	<< "skipping account creation" << endl;
+		// 	return;
+		// }
+
+		// if the titles are the same then increment the stock of the movies
+		// that we have of it
+		stock = classicPtr->getTotalStock();
+		if (table[hash].movie->getTitle() == classicPtr->getTitle())
+		{
+			stock += classicPtr->getTotalStock();
+		}
+		table[hash].movie->setStock(stock);
+
+		//find a good spot for our insertion
+
+		hash++; 
+		// goes over array 1.5x, can make faster, by remembering 
+		//initial hash value, and stopping once it reaches that, stopping
+		// it from going over what it's already gone over
+		// during the first half of checks
+		if (good && hash == TABLE_SIZE)
+		{
+			hash = 1;
+			good = false;
+		}
+	}
 }
 
 //-----------------------------------------------------------------
 //search function
 Movie* MovieInventory::search(int key)
 {
+	//look for key in spot of hash, if not there
+	//check if there by checking key value against the customer's ID!!
+	// keep going, do the 1.5x search for input again, then return customer 
+	//doesn't exist
+	
 	int hash = hashFunction(key);
-	while (table[hash] != nullptr && table[hash]->key != key)
-    {
-        hash = hashFunction(hash + 1);
-    }
-	if (table[hash] == nullptr)
-    {
-		return nullptr;
-    }
-	else
-    {
-        return table[hash]->movie;
-    }
+	//make a copy of inital hash to keep constant for already visited check
+	//int hashVisited = hash;
+	bool good = true;
+
+	while (hash < TABLE_SIZE)
+	{
+		// 
+		if (table[hash].movie->getGenre() == "F") // comedy
+		{
+			string keyF = "F" + table[hash].movie->getReleaseYear() + table[hash].movie->getTitle();
+			int tempHash = hashFunction(cstoi(keyF));
+			if (keyF == key)
+			{
+				return table[hash].movie;
+			}
+		}
+		//if the key wasn't the same as the id of the customer, it's the wrong
+		//spot, so use linear probing to find it
+		hash++;
+		if (good && hash == TABLE_SIZE)
+		{
+			hash = 0;
+			good = false;
+		}
+
+
+		
+		/* idea to only search the other half rather than 1.5 times?
+		//hashVisted check at the bottom to get through inital
+		//iteration first
+		if (hash == hashVisted)
+		{
+			break;
+		}
+		*/
+	
+	}
+	
+
+	//if the while loop concludes without returning the proper customer
+	Movie temp = Movie();
+	Movie* tempPtr = &temp;
+	cerr << "Error: could not find customer with ID of '" <<
+	key << "' default customer of '0, first, last' was returned";
+	return tempPtr;
 }
 
 //-----------------------------------------------------------------
@@ -128,163 +213,46 @@ Movie* MovieInventory::search(int key)
 void MovieInventory::remove(int key)
 {
 	int hash = hashFunction(key);
-	while (table[hash] != nullptr)
-	{
-		if (table[hash]->key == key)
-        {
-            break;
-        }
-		hash = hashFunction(hash + 1);
-	}
-	if (table[hash] == nullptr)
-	{
-		cout << "No Element found at key: " << key << endl;
-		return;
-	}
-	else
-    {
-        delete table[hash];
-    }
-	cout << "Element Deleted" << endl; 
-}
+	//make a copy of inital hash to keep constant for already visited check
+	//int hashVisited = hash;
+	bool good = true;
 
-//-----------------------------------------------------------------
-//print function
-void MovieInventory::printInventory()
-{
-	// sortMovies();
-	for (long unsigned int i = 0; i < vecMovie.size(); i++)
+	while (hash < TABLE_SIZE)
 	{
 		
-		cout << "Printing the inventory...";
-		cout << "Title	Genre	Stock	Year	Director";
-		cout << vecMovie.at(i).getTitle() << " ";
-		cout << vecMovie.at(i).getGenre() << " ";
-		cout << vecMovie.at(i).getStock() << " ";
-		cout << vecMovie.at(i).getReleaseYear() << " ";
-		cout << vecMovie.at(i).getDirector() << " ";
-		cout << endl;
+		if (table[hash].movie->get() == key)
+		{
+			Movie temp = Movie();
+			Movie* tempPtr = &temp;
+			table[hash].movie = tempPtr;
+			return;
+		}
+		//if the key wasn't the same as the id of the customer, it's the wrong
+		//spot, so use linear probing to find it
+		hash++;
+		if (good && hash == TABLE_SIZE)
+		{
+			hash = 0;
+			good = false;
+		}
+
+
+		
+		/* idea to only search the other half rather than 1.5 times?
+		//hashVisted check at the bottom to get through inital
+		//iteration first
+		if (hash == hashVisted)
+		{
+			break;
+		}
+		*/
+	
 	}
+	
+
+	//if the while loop concludes without returning the proper customer
+	
+	cerr << "Error: could not find customer with ID of '" <<
+	key << "' as such, no customer was removed";
+	
 }
-
-//-----------------------------------------------------------------
-//sort movies function
-// void MovieInventory::sortMovies()
-// {
-// 	numComedy = 0;
-// 	numDrama = 0;
-// 	numClassic = 0;
-// 	for (auto i = 0; i < TABLE_SIZE; i++) 
-// 	{
-// 		if (table[i]->movie->getGenre() == "C")
-// 		{
-// 			numClassic += 1;
-// 		}
-// 		else if (table[i]->movie->getGenre() == "F")
-// 		{
-// 			numComedy += 1;
-// 		}
-// 		else if (table[i]->movie->getGenre() == "D")
-// 		{
-// 			numDrama += 1;
-// 		}
-// 		vecMovie.push_back(*table[i]->movie);
-// 	}
-// 	sort(vecMovie.begin(), vecMovie.end(), compareGenre);
-// 	sort(vecMovie.begin(), vecMovie.begin() + numComedy, compareTitle);
-// 	// iterator through the comdey, use two pointers, 
-// 	// if the first pointer and the second pointer equal the same title, 
-// 	// then swap those based on year released
-// 	int itr1 = 0;
-// 	int itr2 = 0;
-// 	// For comedy
-// 	for (int j = 0; j < numComedy; j++)
-// 	{
-// 		itr2++;
-// 		j = itr2;
-// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() 
-//			== vecMovie.at(itr2).getTitle())
-// 		{
-// 			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, 
-//				compareComedyYear);
-// 		}
-// 		itr1++;
-// 	}
-
-// 	// For drama
-// 	sort(vecMovie.begin() + numComedy, vecMovie.begin() + numDrama, 
-//		compareDramaDirector);
-// 	itr1 = numComedy;
-// 	itr2 = numComedy;
-// 	for (int k = numComedy; k <= numComedy + numDrama; k++)
-// 	{
-// 		itr2++;
-// 		k = itr2;
-// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() 
-//			== vecMovie.at(itr2).getTitle())
-// 		{
-// 			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareTitle);
-// 		}
-// 		itr1++;
-// 	}
-
-//-----------------------------------------------------------------
-//
-// 	// For classic
-// 	sort(vecMovie.begin() + numComedy + numDrama, vecMovie.end(), 
-//		compareClassicRelease);
-// 	itr1 = numComedy + numDrama;
-// 	itr2 = numComedy + numDrama;
-// 	for (int l = numComedy; l <= numComedy + numDrama; l++)
-// 	{
-// 		itr2++;
-// 		l = itr2;
-// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() 
-//			== vecMovie.at(itr2).getTitle())
-// 		{
-// 			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, 
-//				compareClassicActor);
-// 		}
-// 		itr1++;
-// 	}
-// }
-
-//-----------------------------------------------------------------
-//
-// bool MovieInventory::compareGenre(Movie m1, Movie m2)
-// {
-// 	return (m1.getGenre() < m2.getGenre());
-// }
-
-//-----------------------------------------------------------------
-//
-// bool MovieInventory::compareTitle(Movie m1, Movie m2)
-// {
-// 	return (m1.getTitle() < m2.getTitle());
-// }
-
-//-----------------------------------------------------------------
-//
-// bool MovieInventory::compareComedyYear(Movie m1, Movie m2)
-// {
-// 	return (m1.getReleaseYear() < m2.getReleaseYear());
-// }
-
-//-----------------------------------------------------------------
-//
-// bool MovieInventory::compareDramaDirector(Movie m1, Movie m2)
-// {
-// 	return (m1.getDirector() < m2.getDirector());
-// }
-
-//-----------------------------------------------------------------
-//
-// bool MovieInventory::compareClassicRelease(Classic m1, Classic m2)
-// {
-// 	return (m1.getReleaseDate() < m2.getReleaseDate());
-// }
-
-// bool MovieInventory::compareClassicActor(Classic m1, Classic m2)
-// {
-// 	return (m1.getActor() < m2.getActor());
-// }

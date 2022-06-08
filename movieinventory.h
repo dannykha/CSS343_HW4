@@ -7,34 +7,40 @@
 // Purpose - provide declarations for movieinventory.cpp file
 // ----------------------------------------------------------------
 // Notes on specifications, special algorithms, and assumptions:
-// - implements Movie and Classic classes to create a hashtable of
-//   movie objects for record keeping
+// - implements Customer class to create a hashtable of Movies
+//   objects for record keeping
 // ----------------------------------------------------------------
 
-#ifndef MOVIEINVENTORY_H
-#define MOVIEINVENTORY_H
+#ifndef HASTABLE_H
+#define HASTABLE_H
 #pragma once
 #define TABLE_SIZE 250
 #include "movie.h"
 #include "classic.h"
-#include <string>
-#include <iostream> 
-#include <algorithm>
-#include <cmath>
-#include <vector>
 
 using namespace std;
 
-class HashElement
+class HashElementMovie
 {
     public:
         int key;
-
-        //implemetns Movie objects for hashtable
+        
+        //implements customer objects for hashtable
         Movie *movie;
+        
 
-        //constructor with inital key and movie pair
-        HashElement(int k, Movie *movi) {
+        //default constructor
+        HashElementMovie()
+        {
+            Movie temp = Movie();
+	        Movie* tempPtr = &temp;
+            key = 0;
+            movie = tempPtr;
+        }
+
+        //constuctor with inital key and customer pair
+        HashElementMovie(int k, Movie *movi)
+        {
             key = k;
             movie = movi;
         }
@@ -52,31 +58,18 @@ class MovieInventory
         //destructor helper function
         void destroy();
 
-        //returns hash value of key
+        //returns hashvalue of key
         int hashFunction(int key);
 
-        //insert functions
-        void insert(Movie *moviPtr);
-        void insert(Classic *); //Classic has special parameters
-
-        //search and remove functions
-        Movie *search(int key);
+        //search for, insert, and remove customers from
+        //from database
+        void insert(int key, Movie* moviePtr);
+        void insert(int key, Classic* classicPtr);
+        Movie* search(int key);
         void remove(int key);
 
-        //prints to console
-        void printInventory();
-
-        // void sortMovies();
-        // bool compareGenre(Movie, Movie);
-        // bool compareTitle(Movie, Movie);
-        // bool compareComedyYear(Movie, Movie);
-        // bool compareDramaDirector(Movie, Movie);
-        // bool compareClassicRelease(Classic, Classic);
-        // bool compareClassicActor(Classic, Classic);
     private:
-        HashElement **table;
-        vector<Movie> vecMovie;
-        int numComedy, numDrama, numClassic;
+        HashElementMovie table[TABLE_SIZE];
 };
 
-#endif // MOVIEINVENTORY
+#endif // HASTABLE_H
