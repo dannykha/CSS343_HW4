@@ -48,10 +48,14 @@ class Store
         void setStoreName(string &);
 
         string getStoreName();
+
+        int cstoi(string &); // custom string to int
         
         //implements MovieInventory to keep track of
         //all movies held in store
         static MovieInventory StoreInventory;
+
+        //removes whitespaces from before and after strings
         string ltrim(const string &);
         string rtrim(const string &);
         string trim(const string &);

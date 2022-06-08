@@ -169,7 +169,7 @@ void Customer::returnMovie(Movie &movie)
 //prints customer’s history of movie inventory to console
 void Customer::printInventoryHistory()
 {
-    for (long long unsigned int i = 0; i <= transactionHistory.size(); i++)
+    for (long long unsigned int i = 0; i < transactionHistory.size(); i++)
     {
         int it = (int) i;
         cout << transactionHistory.at(it) << endl;
