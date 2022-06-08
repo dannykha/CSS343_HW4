@@ -1,24 +1,43 @@
+// ----------------------------------------------------------------
+// store.h
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 7, 2022
+// ----------------------------------------------------------------
+// Purpose - develops Store class
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// - uses a file stream to read from text files
+// - files are to be located with the program files
+// ----------------------------------------------------------------
 
 #include "store.h"
 
+//initialize MovieInventory object
 MovieInventory Store::StoreInventory;
 
+//default constructor
 Store::Store()
 {
     
 }
 
+//-----------------------------------------------------------------
+//destructor
 Store::~Store()
 {
 
 }
 
-
+//-----------------------------------------------------------------
+//constructor with inital store name
 Store::Store(string &theName)
 {
     this->storeName = theName;
 }
 
+//-----------------------------------------------------------------
+//read commands function
 void Store::readCommands(string &fileName)
 {
     string currentCommand = "";
@@ -45,7 +64,8 @@ void Store::readCommands(string &fileName)
                 data >> mediaType;
                 if (mediaType != "D")
                 {
-                    cerr << "Error: invalid media type '" << mediaType << "'" << endl;
+                    cerr << "Error: invalid media type '" << mediaType 
+                        << "'" << endl;
                 }
                 else 
                 {
@@ -58,7 +78,8 @@ void Store::readCommands(string &fileName)
                         getline(data, title, ',');
                         data >> releaseYear;
                         string key = "F" + releaseYear + title;
-                        Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Customer* cust = 
+                            Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = StoreInventory.search(stoi(key));
                         cust->borrowMovie(*movie);
                     }
@@ -70,7 +91,8 @@ void Store::readCommands(string &fileName)
                         getline(data, director, ',');
                         getline(data, title, ',');
                         string key = "D" + director + title;
-                        Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Customer* cust = 
+                            Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = StoreInventory.search(stoi(key));
                         cust->borrowMovie(*movie);
                     }
@@ -85,14 +107,17 @@ void Store::readCommands(string &fileName)
                         data >> year;
                         data >> actorFirst;
                         data >> actorLast;
-                        string key = "C" + month + year + actorFirst + actorLast;
-                        Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
+                        string key = "C" + month + year + actorFirst + 
+                            actorLast;
+                        Customer* cust = 
+                            Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = StoreInventory.search(stoi(key));
                         cust->borrowMovie(*movie);
                     }
                     else
                     {
-                        cerr << "Error: invalid movie type '" << movieType << "'" << endl;
+                        cerr << "Error: invalid movie type '" 
+                            << movieType << "'" << endl;
                     }
                 }
             }
@@ -100,7 +125,8 @@ void Store::readCommands(string &fileName)
             case 72: // (H)istory
             {
                 data >> customerID;
-                Store::StoreCustomerDatabase.search(stoi(customerID))->printInventoryHistory();
+                Store::StoreCustomerDatabase.search(
+                    stoi(customerID))->printInventoryHistory();
             }
                 break;
             case 73: // (I)nventory
@@ -119,7 +145,8 @@ void Store::readCommands(string &fileName)
                         getline(data, title, ',');
                         data >> releaseYear;
                         string key = "F" + releaseYear + title;
-                        Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Customer* cust = 
+                            Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = Store::StoreInventory.search(stoi(key));
                         cust->returnMovie(*movie);
                     }
@@ -131,7 +158,8 @@ void Store::readCommands(string &fileName)
                         getline(data, director, ',');
                         getline(data, title, ',');
                         string key = "D" + director + title;
-                        Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Customer* cust = 
+                            Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = Store::StoreInventory.search(stoi(key));
                         cust->returnMovie(*movie);
                     }
@@ -146,25 +174,32 @@ void Store::readCommands(string &fileName)
                         data >> year;
                         data >> actorFirst;
                         data >> actorLast;
-                        string key = "C" + month + year + actorFirst + actorLast;
-                        Customer* cust = Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = Store::StoreInventory.search(stoi(key));
+                        string key = "C" + month + year + actorFirst + 
+                            actorLast;
+                        Customer* cust = 
+                            Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Movie* movie = 
+                            Store::StoreInventory.search(stoi(key));
                         cust->returnMovie(*movie);
                     }
                     else
                     {
-                        cerr << "Error: invalid movie type '" << movieType << "'" << endl;
+                        cerr << "Error: invalid movie type '" 
+                            << movieType << "'" << endl;
                     }
             }
                 break;
             default:
             {
-                cerr << "Error: invalid command type '" << currentCommand[0] << "'" << endl;
+                cerr << "Error: invalid command type '" << 
+                    currentCommand[0] << "'" << endl;
             }
         }
     }
 }
 
+//-----------------------------------------------------------------
+//read customer function
 void Store::readCustomers(string &fileName)
 {
     int customerID;
@@ -184,7 +219,7 @@ void Store::readCustomers(string &fileName)
         data >> customerID >> custLast >> custFirst;
         cout << "Customer ready to process with the following data" << endl;
         cout << "Customer ID - First Name - Last Name" << endl;
-        cout << customerID << "         " << custFirst << "   " << custLast << endl; 
+        cout << customerID << "       " << custFirst << " " << custLast << endl; 
         Customer *cust = new Customer(customerID, custFirst, custLast);
         cout << "Customer created successfully" << endl;
         cout << "Adding customer to database" << endl;
@@ -194,6 +229,8 @@ void Store::readCustomers(string &fileName)
     }
 }
 
+//-----------------------------------------------------------------
+//read movies function
 void Store::readMovies(string &fileName)
 {
     string director;

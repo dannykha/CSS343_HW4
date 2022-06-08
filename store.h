@@ -1,3 +1,17 @@
+// ----------------------------------------------------------------
+// store.h
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 7, 2022
+// ----------------------------------------------------------------
+// Purpose - provide declarations for store.cpp file
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// - implements MovieInventory, Comedy, Drama, and Classic classes
+//   to create store inventory
+// - movies, customers, and customer commands are initiliazed here
+// ----------------------------------------------------------------
+
 #ifndef STORE_H
 #define STORE_H
 #pragma once
@@ -17,20 +31,29 @@ using namespace std;
 class Store
 {
     public:
+        //constructor
         Store();
+        //constructor with inital store name
         Store(string &);
+
+        //destructor
         ~Store();
+
+        //reader functions
         void readMovies(string &);
         void readCommands(string &);
         void readCustomers(string &);
-
-        void setStoreName(string &);
-        static MovieInventory StoreInventory;
-    private:
         
+        //setter function
+        void setStoreName(string &);
+        
+        //implements MovieInventory to keep track of
+        //all movies held in store
+        static MovieInventory StoreInventory;
+    
+    private:
         CustomerDatabase StoreCustomerDatabase;
         string storeName;
-
 };
 
 
