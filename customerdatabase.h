@@ -11,8 +11,8 @@
 //   objects for record keeping
 // ----------------------------------------------------------------
 
-#ifndef HASTABLE_H
-#define HASTABLE_H
+#ifndef CUSTOMERDATABASE_H
+#define CUSTOMERDATABASE_H
 #pragma once
 #define TABLE_SIZE 250
 #include "customer.h"
@@ -70,4 +70,4 @@ class CustomerDatabase
         HashElementCust table[TABLE_SIZE];
 };
 
-#endif // HASTABLE_H
+#endif // CUSTOMERDATABASE_H

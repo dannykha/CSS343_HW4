@@ -97,6 +97,25 @@ void MovieInventory::insert(int key, Movie *moviPtr)
 	}
 }
 
+void MovieInventory::printInventory()
+{
+	for(int i{0}; i < TABLE_SIZE; i++)
+	{
+		if (table[i].key != 0)
+		{
+			if (table[i].isClassic)
+			{
+				cout << table[i].classic->getTitle();
+			} 
+			else
+			{
+				cout << table[i].movie->getTitle();
+			}
+			
+		}
+	}
+}
+
 //-----------------------------------------------------------------
 // classic movie insert
 void MovieInventory::insert(int key, Classic* classicPtr)
@@ -116,7 +135,8 @@ void MovieInventory::insert(int key, Classic* classicPtr)
 		{
 			// inserts the account
 			table[hash].key = hash;
-			table[hash].movie = classicPtr;
+			table[hash].classic = classicPtr;
+			table[hash].isClassic = true;
 			return;
 		}
 
@@ -169,20 +189,25 @@ Movie* MovieInventory::search(int key)
 	while (hash < TABLE_SIZE)
 	{
 		// 
+		if(table[hash].key == 0)
+		{
+			cerr << "Movie not in Inventory" << endl;
+		};
+
 		if (table[hash].movie->getGenre() == "F") // comedy
 		{
-			string keyF = "F" + table[hash].movie->getReleaseYear() + table[hash].movie->getTitle();
-			int tempHash = hashFunction(Store::cstoi(keyF));
-			if (Store::cstoi(keyF) == key)
+			//string keyF = "F" + table[hash].movie->getReleaseYear() + table[hash].movie->getTitle();
+			//int tempHash = hashFunction(Store::cstoi(keyF));
+			if (table[hash].key == key)
 			{
 				return table[hash].movie;
 			}
 		}
 		else if (table[hash].movie->getGenre() == "D") // drama
 		{
-			string keyD = "D" + table[hash].movie->getDirector() + table[hash].movie->getTitle();
-			int tempHash = hashFunction(Store::cstoi(keyD));
-			if (Store::cstoi(keyD) == key)
+			//string keyD = "D" + table[hash].movie->getDirector() + table[hash].movie->getTitle();
+			//int tempHash = hashFunction(Store::cstoi(keyD));
+			if (table[hash].key == key)
 			{
 				return table[hash].movie;
 			}
@@ -235,9 +260,9 @@ Classic* MovieInventory::classicSearch(int key)
 		// 
 		if (table[hash].movie->getGenre() == "C") // classics
 		{
-			string keyC = "C" + table[hash].classic->getReleaseDate() + table[hash].classic->getActor();
-			int tempHash = hashFunction(Store::cstoi(keyC));
-			if (Store::cstoi(keyC) == key)
+			//string keyC = "C" + table[hash].classic->getReleaseDate() + table[hash].classic->getActor();
+			//int tempHash = hashFunction(Store::cstoi(keyC));
+			if (key == table[hash].key)
 			{
 				return table[hash].classic;
 			}
@@ -286,9 +311,9 @@ void MovieInventory::remove(int key)
 	{
 		if (table[hash].movie->getGenre() == "F") // comedy
 		{
-			string keyF = "F" + table[hash].movie->getReleaseYear() + table[hash].movie->getTitle();
-			int tempHash = hashFunction(Store::cstoi(keyF));
-			if (Store::cstoi(keyF) == key)
+			//string keyF = "F" + table[hash].movie->getReleaseYear() + table[hash].movie->getTitle();
+			//int tempHash = hashFunction(Store::cstoi(keyF));
+			if (table[hash].key == key)
 			{
 				Movie temp = Movie();
 				Movie* tempPtr = &temp;
@@ -298,9 +323,9 @@ void MovieInventory::remove(int key)
 		}
 		else if (table[hash].movie->getGenre() == "D") // drama
 		{
-			string keyD = "D" + table[hash].movie->getDirector() + table[hash].movie->getTitle();
-			int tempHash = hashFunction(Store::cstoi(keyD));
-			if (Store::cstoi(keyD) == key)
+			//string keyD = "D" + table[hash].movie->getDirector() + table[hash].movie->getTitle();
+			//int tempHash = hashFunction(Store::cstoi(keyD));
+			if (table[hash].key == key)
 			{
 				Movie temp = Movie();
 				Movie* tempPtr = &temp;
@@ -310,9 +335,9 @@ void MovieInventory::remove(int key)
 		}
 		else if (table[hash].movie->getGenre() == "C") // clasic
 		{
-			string keyC = "C" + table[hash].classic->getReleaseDate() + table[hash].classic->getActor();
-			int tempHash = hashFunction(Store::cstoi(keyC));
-			if (Store::cstoi(keyC) == key)
+			//string keyC = "C" + table[hash].classic->getReleaseDate() + table[hash].classic->getActor();
+			//int tempHash = hashFunction(Store::cstoi(keyC));
+			if (table[hash].key == key)
 			{
 				Classic temp = Classic();
 				Classic* tempPtr = &temp;
