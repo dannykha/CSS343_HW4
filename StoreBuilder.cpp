@@ -28,12 +28,12 @@ StoreBuilder::~StoreBuilder()
 //add store function
 void StoreBuilder::addStore(string &name)
 {
-    storeList.push_back(Store(name));
+    storeList.push_back(new Store(name));
 }
 
 //-----------------------------------------------------------------
 //store list getter function
-Store StoreBuilder::getStore(int storeID)
+Store* StoreBuilder::getStore(int storeID)
 {
     return storeList.at(storeID);
 }

@@ -25,7 +25,7 @@ class Customer
     public:
 
         Customer(int, string, string); // id, firstname, lastname
-
+        ~Customer();
         //setter functions
         void setName(string, string); //first and last name
         void setName(string); //full name
@@ -48,7 +48,8 @@ class Customer
         // prints customer’s history of movie inventory to console
         void printInventoryHistory();
 
-        friend ostream& operator<< (ostream& out, Customer &rhs);
+        friend ostream& operator << (ostream& out, Customer &rhs);
+        bool operator == (Customer &);
 
     private:
         int id;

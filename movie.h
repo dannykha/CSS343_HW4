@@ -33,7 +33,7 @@ class Movie
         //overloaded comparison operators
         bool operator==(Movie &);
         bool operator!=(Movie &);
-        friend ostream& operator<<(ostream& out, const Movie&);
+        friend ostream& operator<<(ostream& out, Movie&);
 
         //getter functions
         virtual int getStock(); //return movie stock

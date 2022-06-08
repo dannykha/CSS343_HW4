@@ -30,10 +30,10 @@ class StoreBuilder
         void addStore(string &);
 
         //getter function
-        Store getStore(int);
+        Store* getStore(int);
 
     private:
-        vector<Store> storeList;
+        vector<Store*> storeList;
 
 };
 
