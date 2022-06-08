@@ -79,7 +79,7 @@ void Store::readCommands(string &fileName)
                         data >> releaseYear;
                         string key = "F" + releaseYear + title;
                         Customer* cust = 
-                            Store::StoreCustomerDatabase.search(stoi(customerID));
+                          Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = StoreInventory.search(stoi(key));
                         cust->borrowMovie(*movie);
                     }
@@ -92,7 +92,7 @@ void Store::readCommands(string &fileName)
                         getline(data, title, ',');
                         string key = "D" + director + title;
                         Customer* cust = 
-                            Store::StoreCustomerDatabase.search(stoi(customerID));
+                          Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = StoreInventory.search(stoi(key));
                         cust->borrowMovie(*movie);
                     }
@@ -110,7 +110,7 @@ void Store::readCommands(string &fileName)
                         string key = "C" + month + year + actorFirst + 
                             actorLast;
                         Customer* cust = 
-                            Store::StoreCustomerDatabase.search(stoi(customerID));
+                          Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = StoreInventory.search(stoi(key));
                         cust->borrowMovie(*movie);
                     }
@@ -146,7 +146,7 @@ void Store::readCommands(string &fileName)
                         data >> releaseYear;
                         string key = "F" + releaseYear + title;
                         Customer* cust = 
-                            Store::StoreCustomerDatabase.search(stoi(customerID));
+                          Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = Store::StoreInventory.search(stoi(key));
                         cust->returnMovie(*movie);
                     }
@@ -159,7 +159,7 @@ void Store::readCommands(string &fileName)
                         getline(data, title, ',');
                         string key = "D" + director + title;
                         Customer* cust = 
-                            Store::StoreCustomerDatabase.search(stoi(customerID));
+                          Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = Store::StoreInventory.search(stoi(key));
                         cust->returnMovie(*movie);
                     }
@@ -177,7 +177,7 @@ void Store::readCommands(string &fileName)
                         string key = "C" + month + year + actorFirst + 
                             actorLast;
                         Customer* cust = 
-                            Store::StoreCustomerDatabase.search(stoi(customerID));
+                          Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = 
                             Store::StoreInventory.search(stoi(key));
                         cust->returnMovie(*movie);
@@ -219,7 +219,8 @@ void Store::readCustomers(string &fileName)
         data >> customerID >> custLast >> custFirst;
         cout << "Customer ready to process with the following data" << endl;
         cout << "Customer ID - First Name - Last Name" << endl;
-        cout << customerID << "       " << custFirst << " " << custLast << endl; 
+        cout << customerID << "         " << custFirst << "   " 
+            << custLast << endl; 
         Customer *cust = new Customer(customerID, custFirst, custLast);
         cout << "Customer created successfully" << endl;
         cout << "Adding customer to database" << endl;
@@ -255,7 +256,9 @@ void Store::readMovies(string &fileName)
         data >> currentMovie;
         for (int i = 0; i < 4; i++) {
             string substr;
-            getline(data, substr, ','); // May be wrong for getline to seperate the commas, movie label may not be in the line
+            // May be wrong for getline to seperate the commas, 
+            // movie label may not be in the line
+            getline(data, substr, ','); 
             // data may be starting at the stock value
             v.push_back(substr);
         }
@@ -268,7 +271,8 @@ void Store::readMovies(string &fileName)
                 ss >> actorLast;
                 ss >> classicMonth;
                 ss >> classicYear;
-                Classic *classics = new Classic(stoi(v[0]), v[1], v[2], actorFirst, actorLast, classicMonth, classicYear);
+                Classic *classics = new Classic(stoi(v[0]), v[1], v[2], 
+                    actorFirst, actorLast, classicMonth, classicYear);
                 Store::StoreInventory.insert(classics);
             }
                 break;
@@ -281,13 +285,15 @@ void Store::readMovies(string &fileName)
     
             case 70: // F
             {
-                Comedy *comedies = new Comedy(stoi(v[0]), v[1], v[2], stoi(v[3]));
+                Comedy *comedies = new Comedy(stoi(v[0]), v[1],
+                     v[2], stoi(v[3]));
                 Store::StoreInventory.insert(comedies);
             }
                 break;
             default:
             {
-                cerr << "Error: invalid movie type '" << currentMovie[0] << "'" << endl;
+                cerr << "Error: invalid movie type '" << currentMovie[0]
+                    << "'" << endl;
                 break;
             }
         }

@@ -1,3 +1,14 @@
+// ----------------------------------------------------------------
+// movieinventory.cpp
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 7, 2022
+// ----------------------------------------------------------------
+// Purpose - develops MovieInventory class
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// ----------------------------------------------------------------
+
 #include "movieinventory.h"
 
 
@@ -5,6 +16,7 @@ using namespace std;
 
 const int PRIME_CONST = 31;
 
+//constructor
 MovieInventory::MovieInventory()
 {
 	table = new HashElement *[TABLE_SIZE];
@@ -14,11 +26,15 @@ MovieInventory::MovieInventory()
     }
 }
 
+//-----------------------------------------------------------------
+//destructor
 MovieInventory::~MovieInventory()
 {
 	destroy();
 }
 
+//-----------------------------------------------------------------
+//destructor helper function
 void MovieInventory::destroy()
 {
 	for (int i = 0; i < TABLE_SIZE; i++)
@@ -32,18 +48,23 @@ void MovieInventory::destroy()
 	delete[] table;
 }
 
+//-----------------------------------------------------------------
+//hash function, turns key into a hashvalue
 int MovieInventory::hashFunction(int key)
 {
 	int modVal = TABLE_SIZE - 1;
     return key % modVal;
 }
 
+//-----------------------------------------------------------------
+//general insert movie function
 void MovieInventory::insert(Movie *moviPtr)
 {
 	string temp;
 	if (moviPtr->getGenre() == "F") // Comedy
 	{
-		temp = moviPtr->getGenre() + to_string(moviPtr->getReleaseYear()) + moviPtr->getTitle();
+		temp = moviPtr->getGenre() + to_string(moviPtr->getReleaseYear()) 
+			+ moviPtr->getTitle();
 	}
 	else if (moviPtr->getGenre() == "D") // Drama
 	{
@@ -63,10 +84,13 @@ void MovieInventory::insert(Movie *moviPtr)
 	table[hash] = new HashElement(key, moviPtr);
 }
 
+//-----------------------------------------------------------------
+//insert classic movie function
 void MovieInventory::insert(Classic *classicPtr) // Classic
 {
 	string temp;
-	temp = classicPtr->getGenre() + classicPtr->getReleaseDate() + classicPtr->getActor();
+	temp = classicPtr->getGenre() + classicPtr->getReleaseDate() 
+		+ classicPtr->getActor();
 	int key = stoi(temp);
 	int hash = hashFunction(key);
 	while (table[hash] != nullptr && table[hash]->key != key)
@@ -80,6 +104,8 @@ void MovieInventory::insert(Classic *classicPtr) // Classic
 	table[hash] = new HashElement(key, classicPtr);
 }
 
+//-----------------------------------------------------------------
+//search function
 Movie* MovieInventory::search(int key)
 {
 	int hash = hashFunction(key);
@@ -97,6 +123,8 @@ Movie* MovieInventory::search(int key)
     }
 }
 
+//-----------------------------------------------------------------
+//remove function
 void MovieInventory::remove(int key)
 {
 	int hash = hashFunction(key);
@@ -120,6 +148,8 @@ void MovieInventory::remove(int key)
 	cout << "Element Deleted" << endl; 
 }
 
+//-----------------------------------------------------------------
+//print function
 void MovieInventory::printInventory()
 {
 	// sortMovies();
@@ -137,6 +167,8 @@ void MovieInventory::printInventory()
 	}
 }
 
+//-----------------------------------------------------------------
+//sort movies function
 // void MovieInventory::sortMovies()
 // {
 // 	numComedy = 0;
@@ -170,64 +202,83 @@ void MovieInventory::printInventory()
 // 	{
 // 		itr2++;
 // 		j = itr2;
-// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
+// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() 
+//			== vecMovie.at(itr2).getTitle())
 // 		{
-// 			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareComedyYear);
+// 			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, 
+//				compareComedyYear);
 // 		}
 // 		itr1++;
 // 	}
 
 // 	// For drama
-// 	sort(vecMovie.begin() + numComedy, vecMovie.begin() + numDrama, compareDramaDirector);
+// 	sort(vecMovie.begin() + numComedy, vecMovie.begin() + numDrama, 
+//		compareDramaDirector);
 // 	itr1 = numComedy;
 // 	itr2 = numComedy;
 // 	for (int k = numComedy; k <= numComedy + numDrama; k++)
 // 	{
 // 		itr2++;
 // 		k = itr2;
-// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
+// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() 
+//			== vecMovie.at(itr2).getTitle())
 // 		{
 // 			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareTitle);
 // 		}
 // 		itr1++;
 // 	}
 
+//-----------------------------------------------------------------
+//
 // 	// For classic
-// 	sort(vecMovie.begin() + numComedy + numDrama, vecMovie.end(), compareClassicRelease);
+// 	sort(vecMovie.begin() + numComedy + numDrama, vecMovie.end(), 
+//		compareClassicRelease);
 // 	itr1 = numComedy + numDrama;
 // 	itr2 = numComedy + numDrama;
 // 	for (int l = numComedy; l <= numComedy + numDrama; l++)
 // 	{
 // 		itr2++;
 // 		l = itr2;
-// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() == vecMovie.at(itr2).getTitle())
+// 		if (vecMovie.size() > 1 && vecMovie.at(itr1).getTitle() 
+//			== vecMovie.at(itr2).getTitle())
 // 		{
-// 			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, compareClassicActor);
+// 			sort(vecMovie.begin() + itr1, vecMovie.begin() + itr2, 
+//				compareClassicActor);
 // 		}
 // 		itr1++;
 // 	}
 // }
 
+//-----------------------------------------------------------------
+//
 // bool MovieInventory::compareGenre(Movie m1, Movie m2)
 // {
 // 	return (m1.getGenre() < m2.getGenre());
 // }
 
+//-----------------------------------------------------------------
+//
 // bool MovieInventory::compareTitle(Movie m1, Movie m2)
 // {
 // 	return (m1.getTitle() < m2.getTitle());
 // }
 
+//-----------------------------------------------------------------
+//
 // bool MovieInventory::compareComedyYear(Movie m1, Movie m2)
 // {
 // 	return (m1.getReleaseYear() < m2.getReleaseYear());
 // }
 
+//-----------------------------------------------------------------
+//
 // bool MovieInventory::compareDramaDirector(Movie m1, Movie m2)
 // {
 // 	return (m1.getDirector() < m2.getDirector());
 // }
 
+//-----------------------------------------------------------------
+//
 // bool MovieInventory::compareClassicRelease(Classic m1, Classic m2)
 // {
 // 	return (m1.getReleaseDate() < m2.getReleaseDate());
