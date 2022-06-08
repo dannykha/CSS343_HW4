@@ -49,7 +49,7 @@ class Store
 
         string getStoreName();
 
-        int cstoi(string &); // custom string to int
+        static int cstoi(string &); // custom string to int
         
         //implements MovieInventory to keep track of
         //all movies held in store
