@@ -24,6 +24,7 @@ const string title, const string actorFirst, const string actorLast,
 const int month, const int year)
 {
     this->totalStock = tStock;
+    this->setStock(tStock);
     Movie::setDirector(director);
     Movie::setTitle(title);
     this->actorFirst = actorFirst;

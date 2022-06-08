@@ -98,6 +98,7 @@ void Store::readCommands(string &fileName)
                         
                         Customer* cust = 
                         Store::StoreCustomerDatabase.search(stoi(customerID));
+                        cout << "Key of " << title << " " << releaseYear << " is " << cstoi(key) << endl; 
                         Movie* movie = StoreInventory.search(cstoi(key));
                         cust->borrowMovie(*movie);
                     }
@@ -128,7 +129,7 @@ void Store::readCommands(string &fileName)
                         string key = "C" + month + year + actorFirst + 
                             actorLast;
                         Customer* cust = 
-                        Store::StoreCustomerDatabase.classicSearch(stoi(customerID));
+                        Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = StoreInventory.classicSearch(cstoi(key));
                         cust->borrowMovie(*movie);
                     }
@@ -195,7 +196,7 @@ void Store::readCommands(string &fileName)
                         string key = "C" + month + year + actorFirst + 
                             actorLast;
                         Customer* cust = 
-                        Store::StoreCustomerDatabase.classicSearch(stoi(customerID));
+                        Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = 
                         Store::StoreInventory.classicSearch(cstoi(key));
                         cust->returnMovie(*movie);
@@ -271,8 +272,8 @@ void Store::readMovies(string &fileName)
     while ( !data.eof() )
     {
         v.clear();
-        data >> currentMovie;
-        for (int i = 0; i < 4; i++) {
+        
+        for (int i = 0; i < 5; i++) {
             string substr;
             // May be wrong for getline to seperate the commas, 
             // movie label may not be in the line
@@ -280,7 +281,8 @@ void Store::readMovies(string &fileName)
             // data may be starting at the stock value
             v.push_back(substr);
         }
-        stringstream ss(v[3]);
+        currentMovie = v[0];
+        stringstream ss(v[4]);
         switch( (int)currentMovie[0] )
         {
             case 67: // C
@@ -289,12 +291,13 @@ void Store::readMovies(string &fileName)
                 ss >> actorLast;
                 ss >> classicMonth;
                 ss >> classicYear;
-                v[0] = trim(v[0]);
-                string toStock = v[0];
+                v[1] = trim(v[1]);
+                string toStock = v[1];
                 int actualStock = stoi(toStock);
-                Classic *classics = new Classic(actualStock, v[1], v[2], actorFirst, actorLast, classicMonth, classicYear);
+                Classic *classics = new Classic(actualStock, v[2], v[3], actorFirst, actorLast, classicMonth, classicYear);
                 string keyC = "C" + classicMonth + classicYear + actorFirst + actorLast;
-                Store::StoreInventory.insert(cstoi(keyC), classics);
+                int cKey = cstoi(keyC);
+                Store::StoreInventory.insert(cKey, classics);
             }
                 break;
             case 68: // D

@@ -30,13 +30,13 @@ int main()
     string customerFile = "data4customers.txt";
     Stor.getStore(0)->readCustomers(customerFile);
     cout << "(2/2) Customer database successfully created" << endl;
-    /*
+    
     cout << "(1/2) Establishing Movie database" << endl;
     //read movies from txt file and initalize
     string moviesFile = "data4movies.txt";
     Stor.getStore(0)->readMovies(moviesFile);
     cout << "(2/2) Movie database created successfully" << endl;
-    */
+    
     cout << "(1/2) Running customer commands" << endl;
     //read commands from txt file and initialize
     string commandsFile = "data4commands.txt";

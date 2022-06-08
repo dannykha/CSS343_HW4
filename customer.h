@@ -15,6 +15,7 @@
 #define CUSTOMER_H
 #pragma once
 #include <iostream>
+#include <vector>
 #include "movie.h"
 #include "movieinventory.h"
 

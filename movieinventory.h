@@ -28,6 +28,7 @@ class HashElementMovie
         //implements customer objects for hashtable
         Movie *movie;
         Classic *classic;
+        bool isClassic;
         
 
         //default constructor
@@ -37,6 +38,7 @@ class HashElementMovie
 	        Movie* tempPtr = &temp;
             key = 0;
             movie = tempPtr;
+            isClassic = false;
         }
 
         //constuctor with inital key and customer pair
@@ -44,12 +46,14 @@ class HashElementMovie
         {
             key = k;
             movie = movi;
+            isClassic = false;
         }
 
         HashElementMovie(int k, Classic *classics)
         {
             key = k;
             classic = classics;
+            isClassic = true;
         }
 };
 
@@ -75,6 +79,8 @@ class MovieInventory
         Movie* search(int key);
         Classic* classicSearch(int key);
         void remove(int key);
+
+        void printInventory();
 
     private:
         HashElementMovie table[TABLE_SIZE];
