@@ -2,7 +2,7 @@
 // customer.cpp
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 6, 2022
+// Date of Last Modification: June 7, 2022
 // ----------------------------------------------------------------
 // Purpose - develops Customer class to initialize each customer
 // and perform borrow and return as commanded by each customer
@@ -20,19 +20,23 @@
 
 using namespace std;
 
+//overloaded << operator to print customer name to console
 ostream& operator <<(ostream& out, Customer &rhs)
 {
     out << rhs.getName();
     return out;
 };
 
+//-----------------------------------------------------------------
+//constructor; ID number, first name, last name
 Customer::Customer(int a, string b , string c)
 {
     setID(a);
     setName(b, c);
 };
 
-//name setter function
+//-----------------------------------------------------------------
+//name setter function; first and last name
 void Customer::setName(string first, string last)
 {
     this->custFirst = first;
@@ -40,7 +44,7 @@ void Customer::setName(string first, string last)
 };
 
 //-----------------------------------------------------------------
-//name setter function
+//name setter function; full name
 void Customer::setName(string name)
 {
     std::stringstream s(name);
@@ -63,6 +67,13 @@ string Customer::getName()
 };
 
 //-----------------------------------------------------------------
+//ID number getter function
+int Customer::getID()
+{
+    return id;
+};
+
+//-----------------------------------------------------------------
 //print current inventory
 void Customer::printCurrInventory()
 {
@@ -70,11 +81,6 @@ void Customer::printCurrInventory()
     {
         cout << *i << endl;
     };
-};
-
-int Customer::getID()
-{
-    return id;
 };
 
 //-----------------------------------------------------------------

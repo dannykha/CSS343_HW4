@@ -1,8 +1,21 @@
+// ----------------------------------------------------------------
+// customerdatabase.cpp
+// Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
+// Creation Date: May 18, 2022
+// Date of Last Modification: June 7, 2022
+// ----------------------------------------------------------------
+// Purpose - develops CustomerDatabase class to implement HashTable
+// to initialize each customer, ID pair
+// ----------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions:
+// ----------------------------------------------------------------
+
 #include "customerdatabase.h"
 #include <iostream> 
 
 using namespace std;
 
+//constructor
 CustomerDatabase::CustomerDatabase()
 {
 	for (int i = 0; i < TABLE_SIZE; i++)
@@ -11,11 +24,15 @@ CustomerDatabase::CustomerDatabase()
     }
 }
 
+//-----------------------------------------------------------------
+//destructor
 CustomerDatabase::~CustomerDatabase()
 {
 	destroy();
 }
 
+//-----------------------------------------------------------------
+//destructor helper
 void CustomerDatabase::destroy()
 {
 	for (int i = 0; i < TABLE_SIZE; i++)
@@ -28,12 +45,16 @@ void CustomerDatabase::destroy()
 	delete[] table;
 }
 
+//-----------------------------------------------------------------
+//hash function, turns key into a hashvalue
 int CustomerDatabase::hashFunction(int key)
 {
 	int modVal = TABLE_SIZE;
 	return key % modVal;
 }
 
+//-----------------------------------------------------------------
+//insert function
 void CustomerDatabase::insert(int key, Customer *custPtr)
 {
 	//hash the user id
@@ -66,8 +87,8 @@ void CustomerDatabase::insert(int key, Customer *custPtr)
 			}
 		}
 		hash++; 
-		// goes ovver array 1.5x, can make faster, by remebering 
-		//initial hash vlaue, and stopping once it reaches that, stopping
+		// goes over array 1.5x, can make faster, by remembering 
+		//initial hash value, and stopping once it reaches that, stopping
 		// it from going over what it's already gone over
 		// during the first half of checks
 		if (good && hash == TABLE_SIZE)
@@ -79,6 +100,8 @@ void CustomerDatabase::insert(int key, Customer *custPtr)
 	
 }
 
+//-----------------------------------------------------------------
+//search function
 Customer* CustomerDatabase::search(int key)
 {
 	//look for key in spot of hash, if not there
@@ -87,9 +110,36 @@ Customer* CustomerDatabase::search(int key)
 	//doesn't exist
 	
 	int hash = hashFunction(key);
+	//make a copy of inital hash to keep constant for already visited check
+	//int hashVisited = hash;
+	bool good = true;
 
+	while (hash < TABLE_SIZE)
+	{
+		if (table[hash].customer->getID() == key)
+		{
+			return table[hash].customer;
+		}
+
+		if (good && hash == TABLE_SIZE)
+		{
+			hash = 0;
+			good = false;
+		}
+
+		/* idea to only search the other half rather than 1.5 times?
+		//hashVisted check at the bottom to get through inital
+		//iteration first
+		if (hash == hashVisted)
+		{
+			break;
+		}
+		*/
+	}
 }
 
+//-----------------------------------------------------------------
+//remove function
 void CustomerDatabase::remove(int key)
 {
 	int hash = hashFunction(key);
