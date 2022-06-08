@@ -2,7 +2,7 @@
 // customer.h
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 6, 2022
+// Date of Last Modification: June 7, 2022
 // ----------------------------------------------------------------
 // Purpose - provide declarations for customer.cpp file
 // ----------------------------------------------------------------
@@ -30,9 +30,10 @@ class Customer
         void setName(string, string); //first and last name
         void setName(string); //full name
         void setID(int);
-        int getID();
-
+        
+        //getter functions
         string getName(); //getter function to return name
+        int getID();
 
         void printCurrInventory(); //print current inventory
 
@@ -56,7 +57,5 @@ class Customer
         vector<Movie> currentMovies;
         vector<string> transactionHistory;
 };
-
-
 
 #endif // CUSTOMER_H
