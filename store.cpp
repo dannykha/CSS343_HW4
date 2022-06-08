@@ -253,6 +253,7 @@ void Store::readCustomers(string &fileName)
 //read movies function
 void Store::readMovies(string &fileName)
 {
+    string line;
     string director;
     string title;
     string actorFirst;
@@ -272,15 +273,17 @@ void Store::readMovies(string &fileName)
     while ( !data.eof() )
     {
         v.clear();
-        
-        for (int i = 0; i < 5; i++) {
-            string substr;
-            // May be wrong for getline to seperate the commas, 
-            // movie label may not be in the line
-            getline(data, substr, ','); 
-            // data may be starting at the stock value
-            v.push_back(substr);
+        string substr;
+        stringstream iss;
+        while (getline(data, line))
+        {
+            iss << line;
+            while (getline(iss, substr, ','))
+            {
+                v.push_back(substr);
+            }
         }
+        
         currentMovie = v[0];
         stringstream ss(v[4]);
         switch( (int)currentMovie[0] )
