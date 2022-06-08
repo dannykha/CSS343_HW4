@@ -41,10 +41,21 @@ string Store::getStoreName()
     return storeName;
 };
 
+int Store::cstoi(string & in)
+{
+    int sum = 0;
+    for (long long unsigned int i{0};  i < in.length(); i++)
+    {
+        sum += in[i];
+    }
+    return sum;
+}
+
 //-----------------------------------------------------------------
 //read commands function
 void Store::readCommands(string &fileName)
 {
+
     string currentCommand = "";
     string customerID;
     string mediaType;
@@ -83,9 +94,10 @@ void Store::readCommands(string &fileName)
                         getline(data, title, ',');
                         data >> releaseYear;
                         string key = "F" + releaseYear + title;
+                        
                         Customer* cust = 
                           Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = StoreInventory.search(stoi(key));
+                        Movie* movie = StoreInventory.search(cstoi(key));
                         cust->borrowMovie(*movie);
                     }
                     else if (movieType == "D") // Drama
@@ -98,7 +110,7 @@ void Store::readCommands(string &fileName)
                         string key = "D" + director + title;
                         Customer* cust = 
                           Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = StoreInventory.search(stoi(key));
+                        Movie* movie = StoreInventory.search(cstoi(key));
                         cust->borrowMovie(*movie);
                     }
                     else if (movieType == "C") // Classic
@@ -116,7 +128,7 @@ void Store::readCommands(string &fileName)
                             actorLast;
                         Customer* cust = 
                           Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = StoreInventory.search(stoi(key));
+                        Movie* movie = StoreInventory.search(cstoi(key));
                         cust->borrowMovie(*movie);
                     }
                     else
@@ -152,7 +164,7 @@ void Store::readCommands(string &fileName)
                         string key = "F" + releaseYear + title;
                         Customer* cust = 
                           Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = Store::StoreInventory.search(stoi(key));
+                        Movie* movie = Store::StoreInventory.search(cstoi(key));
                         cust->returnMovie(*movie);
                     }
                     else if (movieType == "D") // Drama
@@ -165,7 +177,7 @@ void Store::readCommands(string &fileName)
                         string key = "D" + director + title;
                         Customer* cust = 
                           Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = Store::StoreInventory.search(stoi(key));
+                        Movie* movie = Store::StoreInventory.search(cstoi(key));
                         cust->returnMovie(*movie);
                     }
                     else if (movieType == "C") // Classic
@@ -184,7 +196,7 @@ void Store::readCommands(string &fileName)
                         Customer* cust = 
                           Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = 
-                            Store::StoreInventory.search(stoi(key));
+                            Store::StoreInventory.search(cstoi(key));
                         cust->returnMovie(*movie);
                     }
                     else
