@@ -8,6 +8,7 @@ We did pair-programming and rotated partners. Thus, it's difficult to determine 
  of each inidividual group member. We all contributed equally to different degrees of each file and class.
 
 Created: May 18, 2022
+
 Completed: June 8, 2022
 
 ### Overview:
