@@ -46,12 +46,17 @@ class Store
         
         //setter function
         void setStoreName(string &);
+
+        string getStoreName();
         
         //implements MovieInventory to keep track of
         //all movies held in store
         static MovieInventory StoreInventory;
-    
+        string ltrim(const string &);
+        string rtrim(const string &);
+        string trim(const string &);
     private:
+        const string WHITESPACE = " \n\r\t\f\v";
         CustomerDatabase StoreCustomerDatabase;
         string storeName;
 };

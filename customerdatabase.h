@@ -26,12 +26,13 @@ class HashElementCust
         
         //implements customer objects for hashtable
         Customer *customer;
-        Customer temp = Customer(0, "first", "last");
-	    Customer* tempPtr = &temp;
+        
 
         //default constructor
         HashElementCust()
         {
+            Customer temp = Customer(0, "first", "last");
+	        Customer* tempPtr = &temp;
             key = 0;
             customer = tempPtr;
         }

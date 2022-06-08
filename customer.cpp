@@ -35,6 +35,11 @@ Customer::Customer(int a, string b , string c)
     setName(b, c);
 };
 
+Customer::~Customer()
+{
+
+};
+
 //-----------------------------------------------------------------
 //name setter function; first and last name
 void Customer::setName(string first, string last)
@@ -117,6 +122,11 @@ void Customer::borrowMovie(Movie &movie)
     };
 };
 
+bool Customer::operator == (Customer &rhs)
+{
+    return (this->getID() == rhs.getID()) && (this->getName() == rhs.getName());
+};
+
 //-----------------------------------------------------------------
 //return function; stock + 1
 void Customer::returnMovie(Movie &movie)
@@ -124,7 +134,7 @@ void Customer::returnMovie(Movie &movie)
     //edge-case check if customer has the movie checked out
     bool movieBorrowed = false;
     
-    for (int i = 0; i <= currentMovies.size(); i++)
+    for (long long unsigned int i = 0; i <= currentMovies.size(); i++)
     {
         if (currentMovies.at(i) == movie)
         {
@@ -159,7 +169,7 @@ void Customer::returnMovie(Movie &movie)
 //prints customer’s history of movie inventory to console
 void Customer::printInventoryHistory()
 {
-    for (auto i = 0; i <= transactionHistory.size(); i++)
+    for (long long unsigned int i = 0; i <= transactionHistory.size(); i++)
     {
         int it = (int) i;
         cout << transactionHistory.at(it) << endl;

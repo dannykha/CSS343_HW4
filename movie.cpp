@@ -114,8 +114,8 @@ void Movie::setGenre(const string genre)
     this->filmCategory = genre;
 };
 
-ostream& operator<<(ostream& out, const Movie& rhs)
+ostream& operator<<(ostream& out, Movie& rhs)
 {
-    out << "TODO: movie.cpp << operator lol";
+    out << "hey, what should movie output as? Title:" << rhs.getTitle();
     return out;
 }

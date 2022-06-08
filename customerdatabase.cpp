@@ -37,12 +37,10 @@ void CustomerDatabase::destroy()
 {
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		delete table[i].customer;
-		delete table[i].tempPtr;
+		
 		table[i].customer = nullptr;
-		table[i].tempPtr = nullptr;
 	}
-	delete[] table;
+	
 }
 
 //-----------------------------------------------------------------
@@ -63,29 +61,29 @@ void CustomerDatabase::insert(int key, Customer *custPtr)
 
 	while (hash < TABLE_SIZE)
 	{
+		if (hash == 0)
+		{
+			hash = 1;
+		}
+		if (table[hash].key == 0)
+		{
+			// inserts the account
+			table[hash].key = hash;
+			table[hash].customer = custPtr;
+			return;
+		}
 		//this makes sure the spot you're trying to insert is not a duplicate account
 		if (table[hash].customer->getName() == custPtr->getName() )
 		{
-			if (table[hash].key == hashFunction(custPtr->getID()))
-			{
-				cout << "Duplicate accounts not allowed, " 
-				<< "skipping account creation" << endl;
-				return;
-			}
+			cout << "Duplicate accounts not allowed, " 
+			<< "skipping account creation" << endl;
+			return;
 		}
 
 		//find a good spot for our insertion
-		string defaultName = "first last";
-		if(table[hash].customer->getName() == defaultName)
-		{
-			if (table[hash].key == 0)
-			{
-				// inserts the account
-				table[hash].key = hashFunction(key);
-				table[hash].customer = custPtr;
-				return;
-			}
-		}
+
+			
+
 		hash++; 
 		// goes over array 1.5x, can make faster, by remembering 
 		//initial hash value, and stopping once it reaches that, stopping
@@ -93,7 +91,7 @@ void CustomerDatabase::insert(int key, Customer *custPtr)
 		// during the first half of checks
 		if (good && hash == TABLE_SIZE)
 		{
-			hash = 0;
+			hash = 1;
 			good = false;
 		}
 	}
@@ -120,13 +118,17 @@ Customer* CustomerDatabase::search(int key)
 		{
 			return table[hash].customer;
 		}
-
+		//if the key wasn't the same as the id of the customer, it's the wrong
+		//spot, so use linear probing to find it
+		hash++;
 		if (good && hash == TABLE_SIZE)
 		{
 			hash = 0;
 			good = false;
 		}
 
+
+		
 		/* idea to only search the other half rather than 1.5 times?
 		//hashVisted check at the bottom to get through inital
 		//iteration first
@@ -135,7 +137,16 @@ Customer* CustomerDatabase::search(int key)
 			break;
 		}
 		*/
+	
 	}
+	
+
+	//if the while loop concludes without returning the proper customer
+	Customer temp = Customer(0, "first", "last");
+	Customer* tempPtr = &temp;
+	cerr << "Error: could not find customer with ID of '" <<
+	key << "' default customer of '0, first, last' was returned";
+	return tempPtr;
 }
 
 //-----------------------------------------------------------------
@@ -143,15 +154,45 @@ Customer* CustomerDatabase::search(int key)
 void CustomerDatabase::remove(int key)
 {
 	int hash = hashFunction(key);
-	// do the verification to be sure it's the correct spot
-	// aka copy paste search
-	// but instead of returning when found
-	// re-set to default value
-	//    Customer temp = Customer(0, "first", "last");
-	//    Customer* tempPtr = &temp;
-    //    HashElementCust()
-    //    {
-    //        key = 0;
-    //        customer = tempPtr;
-    //    }
+	//make a copy of inital hash to keep constant for already visited check
+	//int hashVisited = hash;
+	bool good = true;
+
+	while (hash < TABLE_SIZE)
+	{
+		if (table[hash].customer->getID() == key)
+		{
+			Customer temp = Customer(0, "first", "last");
+			Customer* tempPtr = &temp;
+			table[hash].customer = tempPtr;
+			return;
+		}
+		//if the key wasn't the same as the id of the customer, it's the wrong
+		//spot, so use linear probing to find it
+		hash++;
+		if (good && hash == TABLE_SIZE)
+		{
+			hash = 0;
+			good = false;
+		}
+
+
+		
+		/* idea to only search the other half rather than 1.5 times?
+		//hashVisted check at the bottom to get through inital
+		//iteration first
+		if (hash == hashVisted)
+		{
+			break;
+		}
+		*/
+	
+	}
+	
+
+	//if the while loop concludes without returning the proper customer
+	
+	cerr << "Error: could not find customer with ID of '" <<
+	key << "' as such, no customer was removed";
+	
 }

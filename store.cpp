@@ -12,7 +12,6 @@
 // ----------------------------------------------------------------
 
 #include "store.h"
-
 //initialize MovieInventory object
 MovieInventory Store::StoreInventory;
 
@@ -33,8 +32,14 @@ Store::~Store()
 //constructor with inital store name
 Store::Store(string &theName)
 {
+
     this->storeName = theName;
 }
+
+string Store::getStoreName()
+{
+    return storeName;
+};
 
 //-----------------------------------------------------------------
 //read commands function
@@ -271,8 +276,10 @@ void Store::readMovies(string &fileName)
                 ss >> actorLast;
                 ss >> classicMonth;
                 ss >> classicYear;
-                Classic *classics = new Classic(stoi(v[0]), v[1], v[2], 
-                    actorFirst, actorLast, classicMonth, classicYear);
+                v[0] = trim(v[0]);
+                string toStock = v[0];
+                int actualStock = stoi(toStock);
+                Classic *classics = new Classic(actualStock, v[1], v[2], actorFirst, actorLast, classicMonth, classicYear);
                 Store::StoreInventory.insert(classics);
             }
                 break;
@@ -298,4 +305,22 @@ void Store::readMovies(string &fileName)
             }
         }
     }
+}
+
+
+ 
+string Store::ltrim(const std::string &s)
+{
+    size_t start = s.find_first_not_of(WHITESPACE);
+    return (start == std::string::npos) ? "" : s.substr(start);
+}
+ 
+string Store::rtrim(const std::string &s)
+{
+    size_t end = s.find_last_not_of(WHITESPACE);
+    return (end == std::string::npos) ? "" : s.substr(0, end + 1);
+}
+ 
+string Store::trim(const std::string &s) {
+    return rtrim(ltrim(s));
 }
