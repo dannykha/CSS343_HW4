@@ -12,6 +12,7 @@
 // ----------------------------------------------------------------
 
 #include "store.h"
+#include "customer.h"
 //initialize MovieInventory object
 MovieInventory Store::StoreInventory;
 
@@ -96,7 +97,7 @@ void Store::readCommands(string &fileName)
                         string key = "F" + releaseYear + title;
                         
                         Customer* cust = 
-                          Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = StoreInventory.search(cstoi(key));
                         cust->borrowMovie(*movie);
                     }
@@ -109,7 +110,7 @@ void Store::readCommands(string &fileName)
                         getline(data, title, ',');
                         string key = "D" + director + title;
                         Customer* cust = 
-                          Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = StoreInventory.search(cstoi(key));
                         cust->borrowMovie(*movie);
                     }
@@ -127,8 +128,8 @@ void Store::readCommands(string &fileName)
                         string key = "C" + month + year + actorFirst + 
                             actorLast;
                         Customer* cust = 
-                          Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = StoreInventory.search(cstoi(key));
+                        Store::StoreCustomerDatabase.classicSearch(stoi(customerID));
+                        Movie* movie = StoreInventory.classicSearch(cstoi(key));
                         cust->borrowMovie(*movie);
                     }
                     else
@@ -163,7 +164,7 @@ void Store::readCommands(string &fileName)
                         data >> releaseYear;
                         string key = "F" + releaseYear + title;
                         Customer* cust = 
-                          Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = Store::StoreInventory.search(cstoi(key));
                         cust->returnMovie(*movie);
                     }
@@ -194,9 +195,9 @@ void Store::readCommands(string &fileName)
                         string key = "C" + month + year + actorFirst + 
                             actorLast;
                         Customer* cust = 
-                          Store::StoreCustomerDatabase.search(stoi(customerID));
+                        Store::StoreCustomerDatabase.classicSearch(stoi(customerID));
                         Movie* movie = 
-                            Store::StoreInventory.search(cstoi(key));
+                        Store::StoreInventory.classicSearch(cstoi(key));
                         cust->returnMovie(*movie);
                     }
                     else
@@ -292,13 +293,15 @@ void Store::readMovies(string &fileName)
                 string toStock = v[0];
                 int actualStock = stoi(toStock);
                 Classic *classics = new Classic(actualStock, v[1], v[2], actorFirst, actorLast, classicMonth, classicYear);
-                Store::StoreInventory.insert(classics);
+                string keyC = "C" + classicMonth + classicYear + actorFirst + actorLast;
+                Store::StoreInventory.insert(cstoi(keyC), classics);
             }
                 break;
             case 68: // D
             {
                 Drama *dramas = new Drama(stoi(v[0]), v[1], v[2], stoi(v[3]));
-                Store::StoreInventory.insert(dramas);
+                string keyD = "D" + v[1] + v[2];
+                Store::StoreInventory.insert(cstoi(keyD), dramas);
             }
                 break;
     
@@ -306,7 +309,8 @@ void Store::readMovies(string &fileName)
             {
                 Comedy *comedies = new Comedy(stoi(v[0]), v[1],
                      v[2], stoi(v[3]));
-                Store::StoreInventory.insert(comedies);
+                string keyF = "F" + v[2] + v[3];
+                Store::StoreInventory.insert(cstoi(keyF), comedies);
             }
                 break;
             default:

@@ -13,6 +13,11 @@
 #include "classic.h"
 #include <iostream>
 
+Classic::Classic()
+{
+
+}
+
 //constructor
 Classic::Classic(const int tStock, const string director,
 const string title, const string actorFirst, const string actorLast,

@@ -24,6 +24,8 @@ using namespace std;
 class Classic : public Movie
 {
     public:
+
+        Classic();
         //constructor
         Classic(const int tStock, const string director,
         const string title, const string actorFirst, const string actorLast,
