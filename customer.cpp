@@ -35,10 +35,9 @@ Customer::Customer(int a, string b , string c)
     setName(b, c);
 };
 
-Customer::~Customer()
-{
-
-};
+//-----------------------------------------------------------------
+//destructor
+Customer::~Customer() {};
 
 //-----------------------------------------------------------------
 //name setter function; first and last name
@@ -96,7 +95,7 @@ void Customer::addMovie(Movie &movie)
 };
 
 //-----------------------------------------------------------------
-//borrow function; stock - 1
+//borrow function for drama and comedy; stock - 1
 void Customer::borrowMovie(Movie &movie)
 {
     int key;
@@ -133,6 +132,8 @@ void Customer::borrowMovie(Movie &movie)
     };
 };
 
+//-----------------------------------------------------------------
+//borrow function for classic movies; stock - 1
 void Customer::borrowMovie(Classic &movie)
 {
     int key;
@@ -163,6 +164,8 @@ void Customer::borrowMovie(Classic &movie)
     };
 };
 
+//-----------------------------------------------------------------
+//comaprison operator function
 bool Customer::operator == (Customer &rhs)
 {
     return (this->getID() == rhs.getID()) && (this->getName() == rhs.getName());
@@ -198,11 +201,13 @@ void Customer::returnMovie(Movie &movie)
         string temp;
         if (movie.getGenre() == "F")
         {
-            temp = "F" + Store::trim(movie.getTitle()) + to_string(movie.getReleaseYear());
+            temp = "F" + 
+              Store::trim(movie.getTitle()) + to_string(movie.getReleaseYear());
         }
         if (movie.getGenre() == "D")
         {
-            temp = "D" + Store::trim(movie.getDirector()) + Store::trim(movie.getTitle());
+            temp = "D" + 
+              Store::trim(movie.getDirector()) + Store::trim(movie.getTitle());
         }
         
 
@@ -215,6 +220,8 @@ void Customer::returnMovie(Movie &movie)
     };
 };
 
+//-----------------------------------------------------------------
+//return function for classic movies; stock + 1
 void Customer::returnMovie(Classic &movie)
 {
     //edge-case check if customer has the movie checked out

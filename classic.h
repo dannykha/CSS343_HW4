@@ -2,7 +2,7 @@
 // classic.h
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 6, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - provide declarations for classic.cpp file
 // ----------------------------------------------------------------
@@ -38,6 +38,8 @@ class Classic : public Movie
         string getActor(); //return actor name
         string getReleaseDate(); //return release date
         int getTotalStock();
+
+        //setter functions
         void setTotalStock(int);
 
     private:

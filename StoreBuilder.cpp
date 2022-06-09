@@ -1,8 +1,8 @@
 // ----------------------------------------------------------------
-// StoreBuilder.h
+// StoreBuilder.cpp
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 7, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - develops StoreBuilder class to initilaize the store
 // ----------------------------------------------------------------
@@ -12,17 +12,11 @@
 #include "StoreBuilder.h"
 
 //constructor
-StoreBuilder::StoreBuilder() 
-{
-
-}
+StoreBuilder::StoreBuilder() {}
 
 //-----------------------------------------------------------------
 //destructor
-StoreBuilder::~StoreBuilder()
-{
-    
-}
+StoreBuilder::~StoreBuilder() {}
 
 //-----------------------------------------------------------------
 //add store function

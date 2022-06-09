@@ -2,7 +2,7 @@
 // customer.h
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 7, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - provide declarations for customer.cpp file
 // ----------------------------------------------------------------
@@ -16,7 +16,6 @@
 #pragma once
 #include <iostream>
 #include <vector>
-//#include "movie.h"
 #include "classic.h"
 #include "movieinventory.h"
 
@@ -25,9 +24,12 @@ using namespace std;
 class Customer
 {
     public:
-
-        Customer(int, string, string); // id, firstname, lastname
+        //constructor; id, firstname, lastname
+        Customer(int, string, string);
+        
+        //destructor
         ~Customer();
+
         //setter functions
         void setName(string, string); //first and last name
         void setName(string); //full name
@@ -52,6 +54,7 @@ class Customer
         // prints customer’s history of movie inventory to console
         void printInventoryHistory();
 
+        //overloaded operators
         friend ostream& operator << (ostream& out, Customer &rhs);
         bool operator == (Customer &);
 

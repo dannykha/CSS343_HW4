@@ -2,7 +2,7 @@
 // driver.cpp
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 6, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - initializes the store, customers, and movies before
 // performing the actions ordered by each customer

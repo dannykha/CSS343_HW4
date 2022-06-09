@@ -2,7 +2,7 @@
 // MovieInventory.cpp
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 7, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - develops MovieInventory class to implement HashTable
 // to initialize each customer, ID pair
@@ -97,6 +97,8 @@ void MovieInventory::insert(int key, Movie *moviPtr)
 	}
 }
 
+//-----------------------------------------------------------------
+//print inventory function
 void MovieInventory::printInventory()
 {
 	for(int i{0}; i < TABLE_SIZE; i++)
@@ -241,8 +243,6 @@ Movie* MovieInventory::search(int key)
 			good = false;
 		}
 
-
-		
 		/* idea to only search the other half rather than 1.5 times?
 		//hashVisted check at the bottom to get through inital
 		//iteration first
@@ -251,10 +251,8 @@ Movie* MovieInventory::search(int key)
 			break;
 		}
 		*/
-	
 	}
 	
-
 	//if the while loop concludes without returning the proper customer
 
 	cerr << "Error: could not find Movie with Key of '" <<
@@ -262,6 +260,8 @@ Movie* MovieInventory::search(int key)
 	return nullptr;
 }
 
+//-----------------------------------------------------------------
+//search function for classic movies
 Classic* MovieInventory::classicSearch(int key)
 {
 	//look for key in spot of hash, if not there
@@ -300,8 +300,6 @@ Classic* MovieInventory::classicSearch(int key)
 			good = false;
 		}
 
-
-		
 		/* idea to only search the other half rather than 1.5 times?
 		//hashVisted check at the bottom to get through inital
 		//iteration first
@@ -310,7 +308,6 @@ Classic* MovieInventory::classicSearch(int key)
 			break;
 		}
 		*/
-	
 	}
 	
 
@@ -376,8 +373,6 @@ void MovieInventory::remove(int key)
 			hash = 0;
 			good = false;
 		}
-
-
 		
 		/* idea to only search the other half rather than 1.5 times?
 		//hashVisted check at the bottom to get through inital
@@ -389,7 +384,6 @@ void MovieInventory::remove(int key)
 		*/
 	
 	}
-	
 
 	//if the while loop concludes without returning the proper customer
 	
