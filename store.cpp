@@ -138,8 +138,6 @@ void Store::readCommands(string &fileName)
                         
                         Customer* cust = 
                         Store::StoreCustomerDatabase.search(stoi(customerID));
-                        cout << "Key of " << title << " " << releaseYear 
-                            << " is " << cstoi(key) << endl; 
                         Movie* movie = StoreInventory.search(cstoi(key));
                         if (movie == nullptr || cust == nullptr)
                         {
