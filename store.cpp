@@ -2,7 +2,7 @@
 // store.h
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 7, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - develops Store class
 // ----------------------------------------------------------------
@@ -18,21 +18,21 @@
 #include <string>
 #include <iostream>
 #include <cstddef>
+
 //initialize MovieInventory object
 MovieInventory Store::StoreInventory;
+
+//-----------------------------------------------------------------
+//constant static string variable used in trim; delimitter
 const string Store::WHITESPACE =  " \n\r\t\f\v";
+
+//-----------------------------------------------------------------
 //default constructor
-Store::Store()
-{
-    
-}
+Store::Store() {}
 
 //-----------------------------------------------------------------
 //destructor
-Store::~Store()
-{
-
-}
+Store::~Store() {}
 
 //-----------------------------------------------------------------
 //constructor with inital store name
@@ -42,11 +42,15 @@ Store::Store(string &theName)
     this->storeName = theName;
 }
 
+//-----------------------------------------------------------------
+//store name getter
 string Store::getStoreName()
 {
     return storeName;
 };
 
+//-----------------------------------------------------------------
+//custom string to integer function
 int Store::cstoi(string & in)
 {
     int sum = 0;
@@ -123,7 +127,8 @@ void Store::readCommands(string &fileName)
                             else
                             {
                                 string lastNoComma = v[i];
-                                lastNoComma.erase(remove(lastNoComma.begin(), lastNoComma.end(), ','), lastNoComma.end());
+                                lastNoComma.erase(remove(lastNoComma.begin(), 
+                                    lastNoComma.end(), ','), lastNoComma.end());
                                 title.append(lastNoComma);
                             }
                             
@@ -133,7 +138,8 @@ void Store::readCommands(string &fileName)
                         
                         Customer* cust = 
                         Store::StoreCustomerDatabase.search(stoi(customerID));
-                        cout << "Key of " << title << " " << releaseYear << " is " << cstoi(key) << endl; 
+                        cout << "Key of " << title << " " << releaseYear 
+                            << " is " << cstoi(key) << endl; 
                         Movie* movie = StoreInventory.search(cstoi(key));
                         if (movie == nullptr || cust == nullptr)
                         {
@@ -162,7 +168,8 @@ void Store::readCommands(string &fileName)
                         } while ((true));
 
                         
-                        director.erase(remove(director.begin(), director.end(), ','), director.end());
+                        director.erase(remove(director.begin(), director.end(),
+                             ','), director.end());
                         director = trim(director);
                         
                         string title;
@@ -177,7 +184,8 @@ void Store::readCommands(string &fileName)
                             else
                             {
                                 string lastNoComma = v[i];
-                                lastNoComma.erase(remove(lastNoComma.begin(), lastNoComma.end(), ','), lastNoComma.end());
+                                lastNoComma.erase(remove(lastNoComma.begin(), 
+                                    lastNoComma.end(), ','), lastNoComma.end());
                                 title.append(lastNoComma);
                             }
                         }
@@ -202,12 +210,13 @@ void Store::readCommands(string &fileName)
                         year = v[5];
                         actorFirst = v[6];
                         actorLast = v[7];
-                        string key = "C" + month + " " + year + actorFirst + " " + 
-                            actorLast;
+                        string key = "C" + month + " " + year + actorFirst + 
+                            " " + actorLast;
                         Customer* cust = 
                         Store::StoreCustomerDatabase.search(stoi(customerID));
                         int ccKey = cstoi(key);
-                        Classic* classicPtr = StoreInventory.classicSearch(ccKey);
+                        Classic* classicPtr = 
+                            StoreInventory.classicSearch(ccKey);
                         if (classicPtr == nullptr || cust == nullptr)
                         {
                             break;
@@ -261,7 +270,8 @@ void Store::readCommands(string &fileName)
                             else
                             {
                                 string lastNoComma = v[i];
-                                lastNoComma.erase(remove(lastNoComma.begin(), lastNoComma.end(), ','), lastNoComma.end());
+                                lastNoComma.erase(remove(lastNoComma.begin(), 
+                                    lastNoComma.end(), ','), lastNoComma.end());
                                 title.append(lastNoComma);
                             }
                             
@@ -295,7 +305,8 @@ void Store::readCommands(string &fileName)
                         } while ((true));
 
                         
-                        director.erase(remove(director.begin(), director.end(), ','), director.end());
+                        director.erase(remove(director.begin(), director.end(),
+                             ','), director.end());
                         director = trim(director);
                         
                         string title;
@@ -310,7 +321,8 @@ void Store::readCommands(string &fileName)
                             else
                             {
                                 string lastNoComma = v[i];
-                                lastNoComma.erase(remove(lastNoComma.begin(), lastNoComma.end(), ','), lastNoComma.end());
+                                lastNoComma.erase(remove(lastNoComma.begin(), 
+                                    lastNoComma.end(), ','), lastNoComma.end());
                                 title.append(lastNoComma);
                             }
                         }
@@ -439,8 +451,10 @@ void Store::readMovies(string &fileName)
                 v[1] = trim(v[1]);
                 string toStock = v[1];
                 int actualStock = stoi(toStock);
-                Classic *classics = new Classic(actualStock, v[2], v[3], actorFirst, actorLast, classicMonth, classicYear);
-                string keyC = "C" + to_string(classicMonth) + " " + to_string(classicYear) + actorFirst + " " + actorLast;
+                Classic *classics = new Classic(actualStock, v[2], v[3],
+                     actorFirst, actorLast, classicMonth, classicYear);
+                string keyC = "C" + to_string(classicMonth) + " " 
+                    + to_string(classicYear) + actorFirst + " " + actorLast;
                 int cKey = cstoi(keyC);
                 Store::StoreInventory.insert(cKey, classics);
             }

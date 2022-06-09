@@ -2,7 +2,7 @@
 // customerdatabase.h
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 7, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - provide declarations for customerdatabase.cpp file
 // ----------------------------------------------------------------
@@ -27,7 +27,6 @@ class HashElementCust
         //implements customer objects for hashtable
         Customer *customer;
         
-
         //default constructor
         HashElementCust()
         {
@@ -60,8 +59,7 @@ class CustomerDatabase
         //returns hashvalue of key
         int hashFunction(int key);
 
-        //search for, insert, and remove customers from
-        //from database
+        //search for, insert, and remove customers from database
         void insert(int key, Customer *custPtr);
         Customer* search(int key);
         void remove(int key);

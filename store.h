@@ -2,7 +2,7 @@
 // store.h
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 7, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - provide declarations for store.cpp file
 // ----------------------------------------------------------------
@@ -47,9 +47,11 @@ class Store
         //setter function
         void setStoreName(string &);
 
+        //getter function
         string getStoreName();
 
-        static int cstoi(string &); // custom string to int
+        // custom string to int function
+        static int cstoi(string &); 
         
         //implements MovieInventory to keep track of
         //all movies held in store
@@ -59,6 +61,7 @@ class Store
         static string ltrim(const string &);
         static string rtrim(const string &);
         static string trim(const string &);
+        
     private:
         static const string WHITESPACE;
         CustomerDatabase StoreCustomerDatabase;

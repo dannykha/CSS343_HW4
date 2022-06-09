@@ -2,7 +2,7 @@
 // movie.h
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 7, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - provide declarations for movie.cpp file
 // ----------------------------------------------------------------
@@ -27,6 +27,7 @@ class Movie
     public:
         //default constructor to be overloaded by each genre class
         Movie();
+
         //destructor
         virtual ~Movie();
 
@@ -49,7 +50,6 @@ class Movie
         virtual void setReleaseYear(const int year); //set movie release year
         virtual void setGenre(const string genre); //set movie genre
     
-
     private:
         string filmCategory;
         int stock;

@@ -2,7 +2,7 @@
 // customerdatabase.cpp
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 7, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - develops CustomerDatabase class to implement HashTable
 // to initialize each customer, ID pair
@@ -82,8 +82,6 @@ void CustomerDatabase::insert(int key, Customer *custPtr)
 
 		//find a good spot for our insertion
 
-			
-
 		hash++; 
 		// goes over array 1.5x, can make faster, by remembering 
 		//initial hash value, and stopping once it reaches that, stopping
@@ -127,8 +125,6 @@ Customer* CustomerDatabase::search(int key)
 			good = false;
 		}
 
-
-		
 		/* idea to only search the other half rather than 1.5 times?
 		//hashVisted check at the bottom to get through inital
 		//iteration first
@@ -140,7 +136,6 @@ Customer* CustomerDatabase::search(int key)
 	
 	}
 	
-
 	//if the while loop concludes without returning the proper customer
 	
 	cerr << "Error: could not find customer with ID of '" <<
@@ -175,8 +170,6 @@ void CustomerDatabase::remove(int key)
 			good = false;
 		}
 
-
-		
 		/* idea to only search the other half rather than 1.5 times?
 		//hashVisted check at the bottom to get through inital
 		//iteration first
@@ -185,13 +178,11 @@ void CustomerDatabase::remove(int key)
 			break;
 		}
 		*/
-	
 	}
 	
 
 	//if the while loop concludes without returning the proper customer
 	
 	cerr << "Error: could not find customer with ID of '" <<
-	key << "' as such, no customer was removed";
-	
+	key << "' as such, no customer was removed";	
 }

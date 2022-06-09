@@ -2,7 +2,7 @@
 // classic.cpp
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 6, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - develops Classic class to initialize each classic movie
 // and to return privatized values for ease of access
@@ -13,17 +13,11 @@
 #include "classic.h"
 #include <iostream>
 
-Classic::Classic()
-{
+//default constructor
+Classic::Classic() {}
 
-}
-
-void Classic::setTotalStock(int in)
-{
-    this->totalStock = in;
-}
-
-//constructor
+//-----------------------------------------------------------------
+//parametrized constructor
 Classic::Classic(const int tStock, const string director,
 const string title, const string actorFirst, const string actorLast,
 const int month, const int year)
@@ -57,6 +51,15 @@ string Classic::getReleaseDate()
     return (to_string(month) + " " + to_string(getReleaseYear()));
 };
 
+//-----------------------------------------------------------------
+//total stock setter
+void Classic::setTotalStock(int in)
+{
+    this->totalStock = in;
+}
+
+//-----------------------------------------------------------------
+//total stock getter
 int Classic::getTotalStock()
 {
     return totalStock;

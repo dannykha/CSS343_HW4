@@ -2,7 +2,7 @@
 // StoreBuilder.h
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 7, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - provide declarations for StoreBuilder.cpp file
 // ----------------------------------------------------------------
@@ -34,7 +34,6 @@ class StoreBuilder
 
     private:
         vector<Store*> storeList;
-
 };
 
 #endif // STOREBUILDER_H

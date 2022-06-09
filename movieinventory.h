@@ -2,7 +2,7 @@
 // movieinventory.h
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 7, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - provide declarations for movieinventory.cpp file
 // ----------------------------------------------------------------
@@ -29,7 +29,6 @@ class HashElementMovie
         Movie *movie;
         Classic *classic;
         bool isClassic;
-        
 
         //default constructor
         HashElementMovie()
@@ -72,14 +71,16 @@ class MovieInventory
         //returns hashvalue of key
         int hashFunction(int key);
 
-        //search for, insert, and remove customers from
-        //from database
+        //insert fucntions
         void insert(int key, Movie* moviePtr);
         void insert(int key, Classic* classicPtr);
+
+        //search functions
         Movie* search(int key);
         Classic* classicSearch(int key);
-        void remove(int key);
 
+        //remove and print inventory functions
+        void remove(int key);
         void printInventory();
 
     private:

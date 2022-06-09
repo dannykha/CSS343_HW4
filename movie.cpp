@@ -2,7 +2,7 @@
 // movie.cpp
 // Andrew Demaris, Danny Kha, Sara Saleh CSS343B 
 // Creation Date: May 18, 2022
-// Date of Last Modification: June 7, 2022
+// Date of Last Modification: June 8, 2022
 // ----------------------------------------------------------------
 // Purpose - develops Movie class to initialize each movie
 // ----------------------------------------------------------------
@@ -13,15 +13,12 @@
 #include <iostream>
 #include <fstream>
 
-Movie::Movie()
-{
+//default constructor to be overloaded by child classes
+Movie::Movie() {}
 
-}
-
-Movie::~Movie()
-{
-    
-}
+//-----------------------------------------------------------------
+//destructor
+Movie::~Movie() {}
 
 //-----------------------------------------------------------------
 //overloaded == operator
@@ -113,9 +110,3 @@ void Movie::setGenre(const string genre)
 {
     this->filmCategory = genre;
 };
-
-ostream& operator<<(ostream& out, Movie& rhs)
-{
-    out << "hey, what should movie output as? Title:" << rhs.getTitle();
-    return out;
-}
