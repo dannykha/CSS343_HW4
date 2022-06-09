@@ -135,6 +135,10 @@ void Store::readCommands(string &fileName)
                         Store::StoreCustomerDatabase.search(stoi(customerID));
                         cout << "Key of " << title << " " << releaseYear << " is " << cstoi(key) << endl; 
                         Movie* movie = StoreInventory.search(cstoi(key));
+                        if (movie == nullptr || cust == nullptr)
+                        {
+                            break;
+                        }
                         cust->borrowMovie(*movie);
                     }
                     else if (movieType == "D") // Drama
@@ -181,6 +185,10 @@ void Store::readCommands(string &fileName)
                         Customer* cust = 
                         Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = StoreInventory.search(cstoi(key));
+                        if (movie == nullptr || cust == nullptr)
+                        {
+                            break;
+                        }
                         cust->borrowMovie(*movie);
                     }
                     else if (movieType == "C") // Classic
@@ -200,6 +208,10 @@ void Store::readCommands(string &fileName)
                         Store::StoreCustomerDatabase.search(stoi(customerID));
                         int ccKey = cstoi(key);
                         Classic* classicPtr = StoreInventory.classicSearch(ccKey);
+                        if (classicPtr == nullptr || cust == nullptr)
+                        {
+                            break;
+                        }
                         cust->borrowMovie(*classicPtr);
                     }
                     else

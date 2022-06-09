@@ -142,11 +142,10 @@ Customer* CustomerDatabase::search(int key)
 	
 
 	//if the while loop concludes without returning the proper customer
-	Customer temp = Customer(0, "first", "last");
-	Customer* tempPtr = &temp;
+	
 	cerr << "Error: could not find customer with ID of '" <<
-	key << "' default customer of '0, first, last' was returned";
-	return tempPtr;
+	key << endl;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------

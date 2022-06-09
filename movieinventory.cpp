@@ -207,7 +207,7 @@ Movie* MovieInventory::search(int key)
 		if(table[hash].key == 0)
 		{
 			cerr << "Movie not in Inventory" << endl;
-			// put a break; once it works lol
+			break;
 		};
 		if (table[hash].isClassic)
 		{
@@ -256,11 +256,10 @@ Movie* MovieInventory::search(int key)
 	
 
 	//if the while loop concludes without returning the proper customer
-	Movie temp = Movie();
-	Movie* tempPtr = &temp;
+
 	cerr << "Error: could not find Movie with Key of '" <<
-	key << "' default Movie was returned";
-	return tempPtr;
+	key << endl;
+	return nullptr;
 }
 
 Classic* MovieInventory::classicSearch(int key)
@@ -316,11 +315,10 @@ Classic* MovieInventory::classicSearch(int key)
 	
 
 	//if the while loop concludes without returning the proper customer
-	Classic temp = Classic();
-	Classic* tempPtr = &temp;
+
 	cerr << "Error: could not find customer with ID of '" <<
-	key << "' default customer of '0, first, last' was returned";
-	return tempPtr;
+	key << endl;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------
