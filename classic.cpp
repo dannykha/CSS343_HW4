@@ -18,12 +18,17 @@ Classic::Classic()
 
 }
 
+void Classic::setTotalStock(int in)
+{
+    this->totalStock = in;
+}
+
 //constructor
 Classic::Classic(const int tStock, const string director,
 const string title, const string actorFirst, const string actorLast,
 const int month, const int year)
 {
-    this->totalStock = tStock;
+    this->setTotalStock(tStock);
     this->setStock(tStock);
     Movie::setDirector(director);
     Movie::setTitle(title);
@@ -49,7 +54,7 @@ string Classic::getActor()
 //release date getter-function; returns month year
 string Classic::getReleaseDate()
 {
-    return (month + " " + getReleaseYear());
+    return (to_string(month) + " " + to_string(getReleaseYear()));
 };
 
 int Classic::getTotalStock()

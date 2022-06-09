@@ -13,9 +13,14 @@
 
 #include "store.h"
 #include "customer.h"
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <iostream>
+#include <cstddef>
 //initialize MovieInventory object
 MovieInventory Store::StoreInventory;
-
+const string Store::WHITESPACE =  " \n\r\t\f\v";
 //default constructor
 Store::Store()
 {
@@ -62,7 +67,10 @@ void Store::readCommands(string &fileName)
     string mediaType;
     string movieType;
     string movieData;
+    string line;
+    
     ifstream data;
+
     vector<string> v;
     data.open(fileName);
     if (!data)
@@ -72,13 +80,23 @@ void Store::readCommands(string &fileName)
     }
     while ( !data.eof() )
     {
-        data >> currentCommand;
+        v.clear();
+        getline(data, line);
+        stringstream iss;
+        iss << line;
+        string substr;
+        while (iss >> substr)
+        {
+            v.push_back(trim(substr));
+            
+        }
+        currentCommand = v[0];
         switch( (int)currentCommand[0] )
         {
             case 66: // (B)orrow
             {
-                data >> customerID;
-                data >> mediaType;
+                customerID = v[1];
+                mediaType = v[2];
                 if (mediaType != "D")
                 {
                     cerr << "Error: invalid media type '" << mediaType 
@@ -86,15 +104,32 @@ void Store::readCommands(string &fileName)
                 }
                 else 
                 {
-                    data >> movieType;
+                    movieType = v[3];
                     if (movieType == "F") // Comedy
                     {
+                        
                         string title;
                         string releaseYear;
 
-                        getline(data, title, ',');
-                        data >> releaseYear;
-                        string key = "F" + releaseYear + title;
+                        
+                        int last = v.size();
+                        //char ch = ',';
+                        for (long long unsigned int i{4}; i < v.size() - 1; i++)
+                        {
+                            if (i < v.size() - 2)
+                            {
+                                title.append(v[i] + " ");
+                            }
+                            else
+                            {
+                                string lastNoComma = v[i];
+                                lastNoComma.erase(remove(lastNoComma.begin(), lastNoComma.end(), ','), lastNoComma.end());
+                                title.append(lastNoComma);
+                            }
+                            
+                        }
+                        releaseYear = v[last-1];
+                        string key = "F" + trim(title) + releaseYear;
                         
                         Customer* cust = 
                         Store::StoreCustomerDatabase.search(stoi(customerID));
@@ -104,12 +139,45 @@ void Store::readCommands(string &fileName)
                     }
                     else if (movieType == "D") // Drama
                     {
+                        char ch = ',';
+                        size_t found;
                         string director;
-                        string title;
+                        string toAdd;
+                        int i{4};
+                        do {
+                            
+                            toAdd = v[i] + " ";
+                            director.append(toAdd);
+                            
+                            found = v[i].find_last_of(ch);
+                            if (found != string::npos)
+                            {
+                                break;
+                            }
+                            i++;
+                        } while ((true));
 
-                        getline(data, director, ',');
-                        getline(data, title, ',');
-                        string key = "D" + director + title;
+                        
+                        director.erase(remove(director.begin(), director.end(), ','), director.end());
+                        director = trim(director);
+                        
+                        string title;
+                        i++;
+                        long long unsigned int x = i;
+                        for (long long unsigned int i{x}; i < v.size(); i++)
+                        {
+                            if (i < v.size() - 1)
+                            {
+                                title.append(v[i] + " ");
+                            }
+                            else
+                            {
+                                string lastNoComma = v[i];
+                                lastNoComma.erase(remove(lastNoComma.begin(), lastNoComma.end(), ','), lastNoComma.end());
+                                title.append(lastNoComma);
+                            }
+                        }
+                        string key = "D" + trim(director) + trim(title);
                         Customer* cust = 
                         Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = StoreInventory.search(cstoi(key));
@@ -122,16 +190,17 @@ void Store::readCommands(string &fileName)
                         string actorFirst;
                         string actorLast;
 
-                        data >> month;
-                        data >> year;
-                        data >> actorFirst;
-                        data >> actorLast;
-                        string key = "C" + month + year + actorFirst + 
+                        month = v[4];
+                        year = v[5];
+                        actorFirst = v[6];
+                        actorLast = v[7];
+                        string key = "C" + month + " " + year + actorFirst + " " + 
                             actorLast;
                         Customer* cust = 
                         Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = StoreInventory.classicSearch(cstoi(key));
-                        cust->borrowMovie(*movie);
+                        int ccKey = cstoi(key);
+                        Classic* classicPtr = StoreInventory.classicSearch(ccKey);
+                        cust->borrowMovie(*classicPtr);
                     }
                     else
                     {
@@ -143,7 +212,7 @@ void Store::readCommands(string &fileName)
                 break;
             case 72: // (H)istory
             {
-                data >> customerID;
+                customerID = v[1];
                 Store::StoreCustomerDatabase.search(
                     stoi(customerID))->printInventoryHistory();
             }
@@ -155,28 +224,85 @@ void Store::readCommands(string &fileName)
                 break;
             case 82: // (R)eturn
             {
-                data >> movieType;
-                 if (movieType == "F") // Comedy
+               customerID = v[1];
+                mediaType = v[2];
+                if (mediaType != "D")
+                {
+                    cerr << "Error: invalid media type '" << mediaType 
+                        << "'" << endl;
+                }
+                else
+                {
+                    movieType = v[3];
+                    if (movieType == "F") // Comedy
                     {
                         string title;
                         string releaseYear;
+                        int last = v.size();
+                        //char ch = ',';
+                        for (long long unsigned int i{4}; i < v.size() - 1; i++)
+                        {
+                            if (i < v.size() - 2)
+                            {
+                                title.append(v[i] + " ");
+                            }
+                            else
+                            {
+                                string lastNoComma = v[i];
+                                lastNoComma.erase(remove(lastNoComma.begin(), lastNoComma.end(), ','), lastNoComma.end());
+                                title.append(lastNoComma);
+                            }
+                            
+                        }
+                        releaseYear = v[last-1];
+                        string key = "F" + trim(title) + releaseYear;
 
-                        getline(data, title, ',');
-                        data >> releaseYear;
-                        string key = "F" + releaseYear + title;
                         Customer* cust = 
                         Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = Store::StoreInventory.search(cstoi(key));
                         cust->returnMovie(*movie);
-                    }
+                    }   
                     else if (movieType == "D") // Drama
                     {
+                        char ch = ',';
+                        size_t found;
                         string director;
-                        string title;
+                        string toAdd;
+                        int i{4};
+                        do {
+                            
+                            toAdd = v[i] + " ";
+                            director.append(toAdd);
+                            
+                            found = v[i].find_last_of(ch);
+                            if (found != string::npos)
+                            {
+                                break;
+                            }
+                            i++;
+                        } while ((true));
 
-                        getline(data, director, ',');
-                        getline(data, title, ',');
-                        string key = "D" + director + title;
+                        
+                        director.erase(remove(director.begin(), director.end(), ','), director.end());
+                        director = trim(director);
+                        
+                        string title;
+                        i++;
+                        long long unsigned int x = i;
+                        for (long long unsigned int i{x}; i < v.size(); i++)
+                        {
+                            if (i < v.size() - 1)
+                            {
+                                title.append(v[i] + " ");
+                            }
+                            else
+                            {
+                                string lastNoComma = v[i];
+                                lastNoComma.erase(remove(lastNoComma.begin(), lastNoComma.end(), ','), lastNoComma.end());
+                                title.append(lastNoComma);
+                            }
+                        }
+                        string key = "D" + trim(director) + trim(title);
                         Customer* cust = 
                           Store::StoreCustomerDatabase.search(stoi(customerID));
                         Movie* movie = Store::StoreInventory.search(cstoi(key));
@@ -189,10 +315,10 @@ void Store::readCommands(string &fileName)
                         string actorFirst;
                         string actorLast;
 
-                        data >> month;
-                        data >> year;
-                        data >> actorFirst;
-                        data >> actorLast;
+                        month = v[4];
+                        year = v[5];
+                        actorFirst = v[6];
+                        actorLast = v[7];
                         string key = "C" + month + year + actorFirst + 
                             actorLast;
                         Customer* cust = 
@@ -206,6 +332,8 @@ void Store::readCommands(string &fileName)
                         cerr << "Error: invalid movie type '" 
                             << movieType << "'" << endl;
                     }
+                }
+                
             }
                 break;
             default:
@@ -275,15 +403,17 @@ void Store::readMovies(string &fileName)
         v.clear();
         string substr;
         stringstream iss;
-        while (getline(data, line))
+        getline(data, line);
+        iss << line;
+        while (getline(iss, substr, ','))
         {
-            iss << line;
-            while (getline(iss, substr, ','))
-            {
-                v.push_back(substr);
-            }
+            v.push_back(trim(substr));
         }
         
+        if (line == "")
+        {
+            break;
+        }
         currentMovie = v[0];
         stringstream ss(v[4]);
         switch( (int)currentMovie[0] )
@@ -298,25 +428,27 @@ void Store::readMovies(string &fileName)
                 string toStock = v[1];
                 int actualStock = stoi(toStock);
                 Classic *classics = new Classic(actualStock, v[2], v[3], actorFirst, actorLast, classicMonth, classicYear);
-                string keyC = "C" + classicMonth + classicYear + actorFirst + actorLast;
+                string keyC = "C" + to_string(classicMonth) + " " + to_string(classicYear) + actorFirst + " " + actorLast;
                 int cKey = cstoi(keyC);
                 Store::StoreInventory.insert(cKey, classics);
             }
                 break;
             case 68: // D
             {
-                Drama *dramas = new Drama(stoi(v[0]), v[1], v[2], stoi(v[3]));
-                string keyD = "D" + v[1] + v[2];
-                Store::StoreInventory.insert(cstoi(keyD), dramas);
+                Drama *dramas = new Drama(stoi(v[1]), v[2], v[3], stoi(v[4]));
+                string keyD = "D" + v[2] + v[3];
+                int Dkey = cstoi(keyD);
+                Store::StoreInventory.insert(Dkey, dramas);
             }
                 break;
     
             case 70: // F
             {
-                Comedy *comedies = new Comedy(stoi(v[0]), v[1],
-                     v[2], stoi(v[3]));
-                string keyF = "F" + v[2] + v[3];
-                Store::StoreInventory.insert(cstoi(keyF), comedies);
+                Comedy *comedies = new Comedy(stoi(v[1]), v[2],
+                     v[3], stoi(v[4]));
+                string keyF = "F" + v[3] + v[4];
+                int Fkey = cstoi(keyF);
+                Store::StoreInventory.insert(Fkey, comedies);
             }
                 break;
             default:

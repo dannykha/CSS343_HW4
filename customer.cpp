@@ -99,9 +99,20 @@ void Customer::addMovie(Movie &movie)
 //borrow function; stock - 1
 void Customer::borrowMovie(Movie &movie)
 {
-    string temp = movie.getGenre() + movie.getDirector() + 
-        to_string(movie.getReleaseYear()) + movie.getTitle();
-	int key = stoi(temp);
+    int key;
+    string temp;
+    if (movie.getGenre() == "F")
+    {
+        temp = "F" + to_string(movie.getReleaseYear()) + movie.getTitle();
+        key = Store::cstoi(temp);
+    }
+    else
+    {
+        temp = "D" + movie.getDirector() + movie.getTitle();
+        key = Store::cstoi(temp);
+    }
+    
+	
 
     //edge-case check if movie exists and in stock
     if (Store::StoreInventory.search(key) == nullptr ||
@@ -122,6 +133,36 @@ void Customer::borrowMovie(Movie &movie)
     };
 };
 
+void Customer::borrowMovie(Classic &movie)
+{
+    int key;
+    string temp;
+    string releasedate = movie.getReleaseDate();
+    string acto = movie.getActor();
+    temp = "C" + releasedate + acto;
+    key = Store::cstoi(temp);
+    
+	
+
+    //edge-case check if movie exists and in stock
+    if (Store::StoreInventory.classicSearch(key) == nullptr ||
+    Store::StoreInventory.classicSearch(key)->getStock() == 0)
+    {
+        string errorM = "Sorry! " + movie.getReleaseYear() + 
+            movie.getTitle() + " is unavailable.";
+        transactionHistory.push_back(errorM);
+    }
+    else
+    {
+        addMovie(movie);  
+        Store::StoreInventory.classicSearch(key)->
+            setStock(Store::StoreInventory.classicSearch(key)->getStock() - 1);
+        string message = "User borrowed: " + movie.getReleaseYear()
+            + movie.getTitle(); 
+        transactionHistory.push_back(message);
+    };
+};
+
 bool Customer::operator == (Customer &rhs)
 {
     return (this->getID() == rhs.getID()) && (this->getName() == rhs.getName());
@@ -134,7 +175,7 @@ void Customer::returnMovie(Movie &movie)
     //edge-case check if customer has the movie checked out
     bool movieBorrowed = false;
     
-    for (long long unsigned int i = 0; i <= currentMovies.size(); i++)
+    for (long long unsigned int i = 0; i < currentMovies.size(); i++)
     {
         if (currentMovies.at(i) == movie)
         {
@@ -154,11 +195,58 @@ void Customer::returnMovie(Movie &movie)
     }
     else //perform return otherwise
     {
-        string temp = movie.getGenre() + movie.getDirector() + 
-            to_string(movie.getReleaseYear()) + movie.getTitle();
-	    int key = stoi(temp);
+        string temp;
+        if (movie.getGenre() == "F")
+        {
+            temp = "F" + Store::trim(movie.getTitle()) + to_string(movie.getReleaseYear());
+        }
+        if (movie.getGenre() == "D")
+        {
+            temp = "D" + Store::trim(movie.getDirector()) + Store::trim(movie.getTitle());
+        }
+        
+
+	    int key = Store::cstoi(temp);
         Store::StoreInventory.search(key)->
             setStock(Store::StoreInventory.search(key)->getStock() + 1);
+        string message = "User returned: " + movie.getReleaseYear() 
+            + movie.getTitle(); 
+        transactionHistory.push_back(message);    
+    };
+};
+
+void Customer::returnMovie(Classic &movie)
+{
+    //edge-case check if customer has the movie checked out
+    bool movieBorrowed = false;
+    
+    for (long long unsigned int i = 0; i < currentMovies.size(); i++)
+    {
+        if (currentMovies.at(i) == movie)
+        {
+            vector<Movie>::iterator it;
+            it = currentMovies.begin() + i; // might need to be i - 1
+            currentMovies.erase(it);
+            movieBorrowed = true;
+        };
+    };
+
+    //if not in customer inventory, print error
+    if (movieBorrowed == false)
+    {
+        string errorM = "Sorry! " + movie.getReleaseYear() + 
+            movie.getTitle() + " is not in User's inventory.";
+        transactionHistory.push_back(errorM);
+    }
+    else //perform return otherwise
+    {
+        string temp;
+        
+        temp = "C" + movie.getReleaseDate() + movie.getActor();
+
+	    int key = Store::cstoi(temp);
+        Store::StoreInventory.search(key)->
+            setStock(Store::StoreInventory.classicSearch(key)->getStock() + 1);
         string message = "User returned: " + movie.getReleaseYear() 
             + movie.getTitle(); 
         transactionHistory.push_back(message);    
