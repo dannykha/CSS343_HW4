@@ -78,16 +78,6 @@ int Customer::getID()
 };
 
 //-----------------------------------------------------------------
-//print current inventory
-void Customer::printCurrInventory()
-{
-    for (auto i = currentMovies.begin(); i != currentMovies.end(); i++)
-    {
-        cout << *i << endl;
-    };
-};
-
-//-----------------------------------------------------------------
 //adds movie 
 void Customer::addMovie(Movie &movie)
 {
@@ -102,7 +92,7 @@ void Customer::borrowMovie(Movie &movie)
     string temp;
     if (movie.getGenre() == "F")
     {
-        temp = "F" + to_string(movie.getReleaseYear()) + movie.getTitle();
+        temp = "F" + movie.getTitle() + to_string(movie.getReleaseYear());
         key = Store::cstoi(temp);
     }
     else
@@ -117,8 +107,8 @@ void Customer::borrowMovie(Movie &movie)
     if (Store::StoreInventory.search(key) == nullptr ||
     Store::StoreInventory.search(key)->getStock() == 0)
     {
-        string errorM = "Sorry! " + movie.getReleaseYear() + 
-            movie.getTitle() + " is unavailable.";
+        string errorM = "Sorry! " + to_string(movie.getReleaseYear()) 
+            + " " + movie.getTitle() + " is unavailable.";
         transactionHistory.push_back(errorM);
     }
     else
@@ -126,8 +116,8 @@ void Customer::borrowMovie(Movie &movie)
         addMovie(movie);  
         Store::StoreInventory.search(key)->
             setStock(Store::StoreInventory.search(key)->getStock() - 1);
-        string message = "User borrowed: " + movie.getReleaseYear()
-            + movie.getTitle(); 
+        string message = "User borrowed: " + to_string(movie.getReleaseYear())
+             + " " + movie.getTitle(); 
         transactionHistory.push_back(message);
     };
 };
@@ -149,8 +139,8 @@ void Customer::borrowMovie(Classic &movie)
     if (Store::StoreInventory.classicSearch(key) == nullptr ||
     Store::StoreInventory.classicSearch(key)->getStock() == 0)
     {
-        string errorM = "Sorry! " + movie.getReleaseYear() + 
-            movie.getTitle() + " is unavailable.";
+        string errorM = "Sorry! " + to_string(movie.getReleaseYear())  + " "
+            + movie.getTitle() + " is unavailable.";
         transactionHistory.push_back(errorM);
     }
     else
@@ -158,7 +148,7 @@ void Customer::borrowMovie(Classic &movie)
         addMovie(movie);  
         Store::StoreInventory.classicSearch(key)->
             setStock(Store::StoreInventory.classicSearch(key)->getStock() - 1);
-        string message = "User borrowed: " + movie.getReleaseYear()
+        string message = "User borrowed: " + to_string(movie.getReleaseYear()) + " "
             + movie.getTitle(); 
         transactionHistory.push_back(message);
     };
@@ -186,14 +176,14 @@ void Customer::returnMovie(Movie &movie)
             it = currentMovies.begin() + i; // might need to be i - 1
             currentMovies.erase(it);
             movieBorrowed = true;
-        };
-    };
+        }
+    }
 
     //if not in customer inventory, print error
     if (movieBorrowed == false)
     {
-        string errorM = "Sorry! " + movie.getReleaseYear() + 
-            movie.getTitle() + " is not in User's inventory.";
+        string errorM = "Sorry! " + to_string(movie.getReleaseYear()) 
+            + " " +movie.getTitle() + " is not in User's inventory.";
         transactionHistory.push_back(errorM);
     }
     else //perform return otherwise
@@ -214,8 +204,8 @@ void Customer::returnMovie(Movie &movie)
 	    int key = Store::cstoi(temp);
         Store::StoreInventory.search(key)->
             setStock(Store::StoreInventory.search(key)->getStock() + 1);
-        string message = "User returned: " + movie.getReleaseYear() 
-            + movie.getTitle(); 
+        string message = "User returned: " + to_string(movie.getReleaseYear())  
+            + " " + movie.getTitle(); 
         transactionHistory.push_back(message);    
     };
 };
@@ -235,14 +225,14 @@ void Customer::returnMovie(Classic &movie)
             it = currentMovies.begin() + i; // might need to be i - 1
             currentMovies.erase(it);
             movieBorrowed = true;
-        };
-    };
+        }
+    }
 
     //if not in customer inventory, print error
     if (movieBorrowed == false)
     {
-        string errorM = "Sorry! " + movie.getReleaseYear() + 
-            movie.getTitle() + " is not in User's inventory.";
+        string errorM = "Sorry! " + to_string(movie.getReleaseYear()) 
+            + " " + movie.getTitle() + " is not in User's inventory.";
         transactionHistory.push_back(errorM);
     }
     else //perform return otherwise
@@ -252,10 +242,10 @@ void Customer::returnMovie(Classic &movie)
         temp = "C" + movie.getReleaseDate() + movie.getActor();
 
 	    int key = Store::cstoi(temp);
-        Store::StoreInventory.search(key)->
+        Store::StoreInventory.classicSearch(key)->
             setStock(Store::StoreInventory.classicSearch(key)->getStock() + 1);
-        string message = "User returned: " + movie.getReleaseYear() 
-            + movie.getTitle(); 
+        string message = "User returned: " + to_string(movie.getReleaseYear()) 
+            + " " + movie.getTitle(); 
         transactionHistory.push_back(message);    
     };
 };

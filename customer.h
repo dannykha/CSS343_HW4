@@ -39,8 +39,6 @@ class Customer
         string getName(); //getter function to return name
         int getID();
 
-        void printCurrInventory(); //print current inventory
-
         void addMovie(Movie &); // adds movie 
 
         // performs borrow for customer, records transaction in history
