@@ -107,11 +107,13 @@ void MovieInventory::printInventory()
 		{
 			if (table[i].isClassic)
 			{
-				cout << table[i].classic->getTitle() << endl;
+				cout << table[i].classic->getTitle() << " " <<
+				table[i].classic->getStock() << endl;
 			} 
 			else
 			{
-				cout << table[i].movie->getTitle() << endl;;
+				cout << table[i].movie->getTitle() << " " <<
+				table[i].movie->getStock() << endl;
 			}
 			
 		}
