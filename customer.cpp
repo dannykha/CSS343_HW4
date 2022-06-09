@@ -203,7 +203,7 @@ void Customer::returnMovie(Movie &movie)
 
 	    int key = Store::cstoi(temp);
         Store::StoreInventory.search(key)->
-            setStock(Store::StoreInventory.search(key)->getStock() + 1);
+            setStock(Store::StoreInventory.classicSearch(key)->getStock() + 1);
         string message = "User returned: " + to_string(movie.getReleaseYear())  
             + " " + movie.getTitle(); 
         transactionHistory.push_back(message);    

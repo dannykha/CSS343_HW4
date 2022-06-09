@@ -19,6 +19,8 @@
 #include <iostream>
 #include <cstddef>
 
+using namespace std;
+
 //initialize MovieInventory object
 MovieInventory Store::StoreInventory;
 
@@ -243,7 +245,7 @@ void Store::readCommands(string &fileName)
                 break;
             case 82: // (R)eturn
             {
-               customerID = v[1];
+                customerID = v[1];
                 mediaType = v[2];
                 if (mediaType != "D")
                 {
@@ -341,11 +343,11 @@ void Store::readCommands(string &fileName)
                         year = v[5];
                         actorFirst = v[6];
                         actorLast = v[7];
-                        string key = "C" + month + year + actorFirst + 
+                        string key = "C" + month + " " + year + actorFirst + " "+
                             actorLast;
                         Customer* cust = 
                         Store::StoreCustomerDatabase.search(stoi(customerID));
-                        Movie* movie = 
+                        Classic* movie = 
                         Store::StoreInventory.classicSearch(cstoi(key));
                         cust->returnMovie(*movie);
                     }
