@@ -16,7 +16,13 @@ StoreBuilder::StoreBuilder() {}
 
 //-----------------------------------------------------------------
 //destructor
-StoreBuilder::~StoreBuilder() {}
+StoreBuilder::~StoreBuilder()
+{
+    for(auto i : storeList)
+    {
+        delete i;
+    }
+}
 
 //-----------------------------------------------------------------
 //add store function

@@ -30,10 +30,8 @@ class HashElementCust
         //default constructor
         HashElementCust()
         {
-            Customer temp = Customer(0, "first", "last");
-	        Customer* tempPtr = &temp;
             key = 0;
-            customer = tempPtr;
+            customer = nullptr;
         }
 
         //constuctor with inital key and customer pair
