@@ -105,11 +105,11 @@ void MovieInventory::printInventory()
 		{
 			if (table[i].isClassic)
 			{
-				cout << table[i].classic->getTitle();
+				cout << table[i].classic->getTitle() << endl;
 			} 
 			else
 			{
-				cout << table[i].movie->getTitle();
+				cout << table[i].movie->getTitle() << endl;;
 			}
 			
 		}
@@ -123,7 +123,6 @@ void MovieInventory::insert(int key, Classic* classicPtr)
 	//hash the user id
 	int hash = hashFunction(key);
 	bool good = true;
-	int stock = 0;
 
 	while (hash < TABLE_SIZE)
 	{
@@ -150,12 +149,28 @@ void MovieInventory::insert(int key, Classic* classicPtr)
 
 		// if the titles are the same then increment the stock of the movies
 		// that we have of it
-		stock = classicPtr->getTotalStock();
-		if (table[hash].movie->getTitle() == classicPtr->getTitle())
+		//stock = classicPtr->getTotalStock();
+		if (table[hash].isClassic)
 		{
-			stock += classicPtr->getTotalStock();
+			if (table[hash].classic->getTitle() == classicPtr->getTitle())
+			{
+				if (table[hash].classic->getActor() == classicPtr->getActor())
+				{
+					if (table[hash].classic->getReleaseDate() == classicPtr->getReleaseDate())
+					{
+						//identical movie gets it stock incremented
+						table[hash].classic->setStock(table[hash].classic->getStock() + classicPtr->getStock());
+						return;
+					}
+				}
+				int newTotal = table[hash].classic->getStock() + classicPtr->getStock();
+				table[hash].classic->setTotalStock(newTotal);
+				classicPtr->setTotalStock(newTotal);
+			}
 		}
-		table[hash].movie->setStock(stock);
+		
+		
+		//table[hash].classic->setStock(stock);
 
 		//find a good spot for our insertion
 
@@ -192,13 +207,18 @@ Movie* MovieInventory::search(int key)
 		if(table[hash].key == 0)
 		{
 			cerr << "Movie not in Inventory" << endl;
+			// put a break; once it works lol
 		};
-
+		if (table[hash].isClassic)
+		{
+			hash++;
+			continue;
+		}
 		if (table[hash].movie->getGenre() == "F") // comedy
 		{
 			//string keyF = "F" + table[hash].movie->getReleaseYear() + table[hash].movie->getTitle();
 			//int tempHash = hashFunction(Store::cstoi(keyF));
-			if (table[hash].key == key)
+			if (table[hash].key == hash)
 			{
 				return table[hash].movie;
 			}
@@ -207,7 +227,7 @@ Movie* MovieInventory::search(int key)
 		{
 			//string keyD = "D" + table[hash].movie->getDirector() + table[hash].movie->getTitle();
 			//int tempHash = hashFunction(Store::cstoi(keyD));
-			if (table[hash].key == key)
+			if (table[hash].key == hash)
 			{
 				return table[hash].movie;
 			}
@@ -238,8 +258,8 @@ Movie* MovieInventory::search(int key)
 	//if the while loop concludes without returning the proper customer
 	Movie temp = Movie();
 	Movie* tempPtr = &temp;
-	cerr << "Error: could not find customer with ID of '" <<
-	key << "' default customer of '0, first, last' was returned";
+	cerr << "Error: could not find Movie with Key of '" <<
+	key << "' default Movie was returned";
 	return tempPtr;
 }
 
@@ -257,12 +277,17 @@ Classic* MovieInventory::classicSearch(int key)
 
 	while (hash < TABLE_SIZE)
 	{
-		// 
-		if (table[hash].movie->getGenre() == "C") // classics
+		
+		if (!(table[hash].isClassic))
+		{
+			hash++;
+			continue;
+		}
+		if (table[hash].classic->getGenre() == "C") // classics
 		{
 			//string keyC = "C" + table[hash].classic->getReleaseDate() + table[hash].classic->getActor();
 			//int tempHash = hashFunction(Store::cstoi(keyC));
-			if (key == table[hash].key)
+			if (hash == table[hash].key)
 			{
 				return table[hash].classic;
 			}

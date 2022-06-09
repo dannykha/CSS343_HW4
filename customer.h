@@ -16,7 +16,8 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "movie.h"
+//#include "movie.h"
+#include "classic.h"
 #include "movieinventory.h"
 
 using namespace std;
@@ -42,9 +43,11 @@ class Customer
 
         // performs borrow for customer, records transaction in history
         void borrowMovie(Movie &);
+        void borrowMovie(Classic &);
 
         // performs return for customer, records transaction in history
         void returnMovie(Movie &);
+        void returnMovie(Classic &);
 
         // prints customer’s history of movie inventory to console
         void printInventoryHistory();

@@ -56,11 +56,11 @@ class Store
         static MovieInventory StoreInventory;
 
         //removes whitespaces from before and after strings
-        string ltrim(const string &);
-        string rtrim(const string &);
-        string trim(const string &);
+        static string ltrim(const string &);
+        static string rtrim(const string &);
+        static string trim(const string &);
     private:
-        const string WHITESPACE = " \n\r\t\f\v";
+        static const string WHITESPACE;
         CustomerDatabase StoreCustomerDatabase;
         string storeName;
 };
