@@ -33,10 +33,9 @@ class HashElementMovie
         //default constructor
         HashElementMovie()
         {
-            Movie temp = Movie();
-	        Movie* tempPtr = &temp;
             key = 0;
-            movie = tempPtr;
+            movie = nullptr;
+            classic = nullptr;
             isClassic = false;
         }
 

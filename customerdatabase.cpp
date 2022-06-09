@@ -35,10 +35,12 @@ CustomerDatabase::~CustomerDatabase()
 //destructor helper
 void CustomerDatabase::destroy()
 {
-	for (int i = 0; i < TABLE_SIZE; i++)
+	for (auto i : table)
 	{
-		
-		table[i].customer = nullptr;
+		if (i.customer != nullptr)
+		{
+			delete i.customer;
+		}
 	}
 	
 }
@@ -77,6 +79,7 @@ void CustomerDatabase::insert(int key, Customer *custPtr)
 		{
 			cout << "Duplicate accounts not allowed, " 
 			<< "skipping account creation" << endl;
+			delete custPtr;
 			return;
 		}
 
@@ -112,7 +115,8 @@ Customer* CustomerDatabase::search(int key)
 
 	while (hash < TABLE_SIZE)
 	{
-		if (table[hash].customer->getID() == key)
+		
+		if (table[hash].customer != nullptr && table[hash].customer->getID() == key)
 		{
 			return table[hash].customer;
 		}

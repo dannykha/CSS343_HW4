@@ -36,10 +36,16 @@ MovieInventory::~MovieInventory()
 //destructor helper
 void MovieInventory::destroy()
 {
-	for (int i = 0; i < TABLE_SIZE; i++)
+	for (auto i : table)
 	{
-		
-		table[i].movie = nullptr;
+		if (i.movie != nullptr)
+		{
+			delete i.movie;
+		}
+		if (i.classic != nullptr)
+		{
+			delete i.classic;
+		}
 	}
 	
 }
